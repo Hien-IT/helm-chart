@@ -13,7 +13,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-    - host: 10.86.62.31
+    - host: ehiring.example.com
       paths:
         - path: /
           pathType: Prefix
