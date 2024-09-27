@@ -97,9 +97,6 @@ dependencies:
     tags:
       - backend-services
     version: ^0.1.0
-  - name: ingress-nginx
-    version: 4.7.1
-    repository: https://kubernetes.github.io/ingress-nginx
 description: A Helm chart for Kubernetes
 name: ehiring
 type: application
