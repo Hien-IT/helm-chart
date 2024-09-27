@@ -25,3 +25,5 @@ spec:
       - name: nginx-config
         configMap:
           name: nginx-config
+        persistentVolumeClaim:
+          claimName: nginx-config-pvc
