@@ -24,10 +24,10 @@ global:
         value: ehiring
       - name: APP_LOGGER_LEVEL
         value: debug,log,error,warn,verbose
-      - name: MONGODB_USERNAME
-        value: ehiring
-      - name: MONGODB_PASSWORD
-        value: ehiring
+      # - name: MONGODB_USERNAME
+      #   value: ehiring
+      # - name: MONGODB_PASSWORD
+      #   value: ehiring
       - name: APP_TENANT
         value: stg
       - name: MONGODB_DATABASE
