@@ -1,6 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: IngressClass
 metadata:
-  name: {{ .Values.ingress.className }}
+  name: nginx
 spec:
   controller: nginx.org/ingress-controller

@@ -14,6 +14,7 @@ spec:
       labels:
         app: nginx-ingress
     spec:
+      serviceAccountName: {{ .Release.Name }}-nginx-ingress
       containers:
       - name: nginx-ingress
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

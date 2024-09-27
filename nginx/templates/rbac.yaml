@@ -9,10 +9,9 @@ metadata:
   name: {{ .Release.Name }}-nginx-ingress
 rules:
   - apiGroups:
-      - ""
+      - networking.k8s.io
     resources:
-      - services
-      - endpoints
+      - ingressclasses
     verbs:
       - get
       - list
