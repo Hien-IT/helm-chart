@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ehiring-nginx-config
+  name: ehiring-nginx
 spec:
   replicas: 1
   selector:
@@ -18,12 +18,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: nginx-config
+        - name: nginx-config-volume
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
       volumes:
-      - name: nginx-config
+      - name: nginx-config-volume
         configMap:
-          name: nginx-config
-        persistentVolumeClaim:
-          claimName: nginx-config-pvc
+          name: ehiring-nginx-config
