@@ -4,11 +4,11 @@ metadata:
   name: ngnix-config-pv
 spec:
   capacity:
-    storage: {{ .Values.persistence.size }}
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: {{ .Values.persistence.storageClass }}
+  storageClassName: local-storage
   local:
     path: /mnt/data/nginx
   nodeAffinity:
