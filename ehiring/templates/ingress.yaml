@@ -18,15 +18,17 @@ spec:
                 port: 
                   number: 8080
           {{- range $name, $service := .Values }}
-          {{- if and (hasKey $service "router") ($service.router.enabled) }}
+          {{- if and (kindIs "map" $service) (hasKey $service "router") }}
+          {{- if $service.router.enabled | default true }}
           {{- range $service.router.routes }}
           - path: {{ .path }}
             pathType: Prefix
             backend:
               service:
-                name: {{ $.Release.Name }}-{{ $name }}-service
+                name: {{ $.Release.Name }}-{{ $name }}
                 port: 
                   number: 3000
+          {{- end }}
           {{- end }}
           {{- end }}
           {{- end }}
