@@ -1,0 +1,9 @@
+nats:
+  image:
+    repository: bitnami/nats
+    tag: "2"
+
+service:
+  type: NodePort
+  port: 4222
+  nodePort: 32224
