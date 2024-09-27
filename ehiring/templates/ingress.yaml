@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ebhring-ingress
+  name: ehiring-ingress
 spec:
   rules:
   - http:
