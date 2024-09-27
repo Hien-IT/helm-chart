@@ -3,197 +3,29 @@ kind: Ingress
 metadata:
   name: ehiring-ingress
   annotations:
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-    - http:
-        paths:
-          - path: /api/competencies(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-competencies-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/competency-groups(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-competencies-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/dashboard(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-dashboard-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/emails(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-emails-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/file-manager(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-file-manager-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/gpt(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-gpt-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/integrations(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-integrations-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/job-descriptions(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-job-descriptions-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/job-description-groups(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-job-descriptions-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/mail-templates(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-mail-templates-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/masterdata(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-masterdata-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/recruitment-plans(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-recruitment-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/recruitment-requests(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-recruitment-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/applications(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-recruitment-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/offers(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-recruitment-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/schedules(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-schedules-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/schedule-groups(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-schedules-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/evaluation-forms(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-schedules-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/evaluation-form-groups(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-schedules-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/talent-pools(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-talent-pools-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/talents(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-talent-pools-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/resumes(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-talent-pools-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/users(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-users-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/user-groups(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-users-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api/websites(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-websites-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /api(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-portal-backend
-                port: 
-                  number: {{ .Values.service.port }}
-          - path: /(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ehiring-ehiring-host
-                port: 
-                  number: 8080
+  - http:
+      paths:
+      {{- range $key, $value := .Values }}
+      {{- if and (hasSuffix "-backend" $key) $value.router.routes }}
+      {{- range $value.router.routes }}
+      - path: {{ .path }}(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $key }}-service
+            port: 
+              number: 3000
+      {{- end }}
+      {{- end }}
+      {{- end }}
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: ehiring-frontend-service
+            port: 
+              number: 8080
