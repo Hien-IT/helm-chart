@@ -5,10 +5,10 @@ metadata:
   labels:
     app: mongodb
 spec:
-  type: {{ .Values.serviceNodePort.type }}
+  type: NodePort
   ports:
-    - port: {{ .Values.serviceNodePort.port }}
+    - port: 27017
       targetPort: 27017
-      nodePort: {{ .Values.serviceNodePort.nodePort }}
+      nodePort: 32018
   selector:
     app: mongodb

@@ -5,9 +5,9 @@ metadata:
   labels:
     app: mongodb
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 27017
       targetPort: 27017
   selector:
     app: mongodb

@@ -9,12 +9,3 @@ mongodb:
 persistence:
   size: 3Gi
   storageClass: local-storage
-
-serviceNodePort:
-  type: NodePort
-  port: 27017
-  nodePort: 32018
-
-service:
-  type: ClusterIP
-  port: 32017
