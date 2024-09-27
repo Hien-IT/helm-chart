@@ -219,8 +219,7 @@ websites-backend:
 portal-backend:
   router:
     routes:
-      - path: /api
-        host: portal.10.86.62.31
+      - path: /api/portals
 
 services-cv-parser:
   router:

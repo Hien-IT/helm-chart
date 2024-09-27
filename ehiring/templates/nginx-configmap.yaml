@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ehiring-nginx-config
+data:
+  nginx.conf: |
+    events {}
+    http {
+      server {
+        listen 80;
+        
+        location / {
+          proxy_pass http://{{ .Release.Name }}-ehiring-host-service:{{ .Values.service.port }};
+        }
+        
+        location /api/competencies {
+          proxy_pass http://{{ .Release.Name }}-competencies-backend-service:{{ .Values.service.port }};
+        }
+        location /api/competency-groups {
+          proxy_pass http://{{ .Release.Name }}-competencies-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/dashboard {
+          proxy_pass http://{{ .Release.Name }}-dashboard-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/emails {
+          proxy_pass http://{{ .Release.Name }}-emails-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/file-manager {
+          proxy_pass http://{{ .Release.Name }}-file-manager-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/gpt {
+          proxy_pass http://{{ .Release.Name }}-gpt-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/integrations {
+          proxy_pass http://{{ .Release.Name }}-integration-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/job-descriptions {
+          proxy_pass http://{{ .Release.Name }}-job-descriptions-backend-service:{{ .Values.service.port }};
+        }
+        location /api/job-description-groups {
+          proxy_pass http://{{ .Release.Name }}-job-descriptions-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/mail-templates {
+          proxy_pass http://{{ .Release.Name }}-mail-templates-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/masterdata {
+          proxy_pass http://{{ .Release.Name }}-masterdata-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/recruitment-plans {
+          proxy_pass http://{{ .Release.Name }}-recruitment-backend-service:{{ .Values.service.port }};
+        }
+        location /api/recruitment-requests {
+          proxy_pass http://{{ .Release.Name }}-recruitment-backend-service:{{ .Values.service.port }};
+        }
+        location /api/applications {
+          proxy_pass http://{{ .Release.Name }}-recruitment-backend-service:{{ .Values.service.port }};
+        }
+        location /api/offers {
+          proxy_pass http://{{ .Release.Name }}-recruitment-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/schedules {
+          proxy_pass http://{{ .Release.Name }}-schedules-backend-service:{{ .Values.service.port }};
+        }
+        location /api/schedule-groups {
+          proxy_pass http://{{ .Release.Name }}-schedules-backend-service:{{ .Values.service.port }};
+        }
+        location /api/evaluation-forms {
+          proxy_pass http://{{ .Release.Name }}-schedules-backend-service:{{ .Values.service.port }};
+        }
+        location /api/evaluation-form-groups {
+          proxy_pass http://{{ .Release.Name }}-schedules-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/talent-pools {
+          proxy_pass http://{{ .Release.Name }}-talent-pools-backend-service:{{ .Values.service.port }};
+        }
+        location /api/talents {
+          proxy_pass http://{{ .Release.Name }}-talent-pools-backend-service:{{ .Values.service.port }};
+        }
+        location /api/resumes {
+          proxy_pass http://{{ .Release.Name }}-talent-pools-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/users {
+          proxy_pass http://{{ .Release.Name }}-users-backend-service:{{ .Values.service.port }};
+        }
+        location /api/user-groups {
+          proxy_pass http://{{ .Release.Name }}-users-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/websites {
+          proxy_pass http://{{ .Release.Name }}-websites-backend-service:{{ .Values.service.port }};
+        }
+        
+        location /api/portals {
+          proxy_pass http://{{ .Release.Name }}-portal-backend-service:{{ .Values.service.port }};
+        }
+      }
+    }
