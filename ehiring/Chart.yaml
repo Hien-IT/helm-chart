@@ -1,102 +1,105 @@
 apiVersion: v2
 appVersion: latest
 dependencies:
-- alias: ehiring-host
-  name: frontend
-  repository: file://../frontend
-  tags:
-  - frontend
-  version: ^0.1.0
-- alias: competencies-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: dashboard-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: emails-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: file-manager-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: gpt-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: integration-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: job-descriptions-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: mail-templates-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: masterdata-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: recruitment-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: schedules-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: talent-pools-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: users-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: websites-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
-- alias: portal-backend
-  name: backend-service
-  repository: file://../backend-service
-  tags:
-  - backend-services
-  version: ^0.1.0
+  - alias: ehiring-host
+    name: frontend
+    repository: file://../frontend
+    tags:
+      - frontend
+    version: ^0.1.0
+  - alias: competencies-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: dashboard-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: emails-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: file-manager-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: gpt-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: integration-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: job-descriptions-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: mail-templates-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: masterdata-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: recruitment-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: schedules-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: talent-pools-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: users-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: websites-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: portal-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - name: ingress-nginx
+    version: 4.7.1
+    repository: https://kubernetes.github.io/ingress-nginx
 description: A Helm chart for Kubernetes
 name: ehiring
 type: application

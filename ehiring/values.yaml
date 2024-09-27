@@ -135,6 +135,11 @@ tolerations: []
 
 affinity: {}
 
+ingress-nginx:
+  controller:
+    service:
+      type: LoadBalancer
+
 competencies-backend:
   router:
     routes:
