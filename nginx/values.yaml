@@ -1,0 +1,22 @@
+replicaCount: 1
+
+image:
+  repository: nginx/nginx-ingress
+  tag: "3.1.1"
+
+service:
+  type: LoadBalancer
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+config:
+  enableSnippets: true
