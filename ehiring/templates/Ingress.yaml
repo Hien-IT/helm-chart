@@ -26,6 +26,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: ehiring-frontend-service
+            name: ehiring-frontend-service-node-port
             port: 
               number: 8080
