@@ -76,6 +76,7 @@ global:
         value: https://id.paas.ttgt.vn/realms/smc-staging
       - name: OIDC_JWKS_URI
         value: https://id.paas.ttgt.vn/realms/smc-staging/protocol/openid-connect/certs
+
 imagePullSecrets:
   - name: rc-registry-secret
 nameOverride: ""
