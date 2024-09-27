@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-service-node-port
+  labels:
+    {{- include "frontend.selectorLabels" . | nindent 4 }}
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30042
+  selector:
+    {{- include "frontend.selectorLabels" . | nindent 4 }}

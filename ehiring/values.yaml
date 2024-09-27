@@ -70,7 +70,12 @@ global:
         value:
       - name: MAILER_FROM
         value: '"FPT Recruitment" <fpt@talentx.vn>'
-
+      - name: OIDC_CLIENT_ID
+        value: ehiring
+      - name: OIDC_ISSUER
+        value: https://id.paas.ttgt.vn/realms/smc-staging
+      - name: OIDC_JWKS_URI
+        value: https://id.paas.ttgt.vn/realms/smc-staging/protocol/openid-connect/certs
 imagePullSecrets:
   - name: rc-registry-secret
 nameOverride: ""
