@@ -35,7 +35,7 @@ global:
       - name: MONGODB_HOSTNAME
         value: "mongodb-service"
       - name: MONGODB_PORT
-        value: "32017"
+        value: "27017"
       - name: APP_FRONTEND_URL
         value: http://10.86.62.31
       - name: APP_PREFIX
