@@ -211,6 +211,11 @@ users-backend:
       - path: /api/users
       - path: /api/user-groups
 
+tenants-backend:
+  router:
+    routes:
+      - path: /api/tenants
+
 websites-backend:
   router:
     routes:
