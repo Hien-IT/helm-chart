@@ -7,13 +7,13 @@ replicaCount: 1
 annotations: {}
 
 global:
-  host: "10.86.62.31"
+  host: "ehiring.ddns.net"
   frontend:
     env:
       - name: APP_API
         value: /api
       - name: AUTH_SECURE_ROUTES
-        value: "http://10.86.62.31:30080/"
+        value: "http://ehiring.ddns.net/"
       - name: AUTH_ISSUER
         value: https://id.paas.ttgt.vn/realms/smc-staging
       - name: AUTH_CLIENT_ID
