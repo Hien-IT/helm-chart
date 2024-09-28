@@ -135,6 +135,12 @@ tolerations: []
 
 affinity: {}
 
+ehiring-host:
+  router:
+    enabled: true
+    routes:
+      - path: /
+
 competencies-backend:
   router:
     routes:
