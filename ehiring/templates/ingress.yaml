@@ -1,17 +1,36 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: {{ include "ehiring.fullname" . }}-frontend
+  name: {{ include "ehiring.fullname" . }}
   namespace: {{ .Release.Namespace }}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Release.Namespace }}-{{ include "ehiring.fullname" . }}-strip-prefix@kubernetescrd
 spec:
-  entryPoints:
-    - web
-  routes:
-    - match: Host(`{{ .Values.global.host }}`)
-      kind: Rule
-      services:
-        - name: {{ .Release.Name }}-ehiring-host-service
-          port: 8080
+  rules:
+    - host: {{ .Values.global.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-ehiring-host-service
+                port: 
+                  number: 8080
+          {{- range $name, $config := .Values }}
+          {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
+          {{- range $route := $config.router.routes }}
+          - path: {{ $route.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $.Release.Name }}-{{ $name }}-service
+                port: 
+                  number: 3000
+          {{- end }}
+          {{- end }}
+          {{- end }}
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -23,27 +42,3 @@ spec:
   stripPrefix:
     prefixes:
       - /api
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: {{ include "ehiring.fullname" . }}-backend
-  namespace: {{ .Release.Namespace }}
-spec:
-  entryPoints:
-    - web
-  routes:
-    {{- range $name, $config := .Values }}
-    {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
-    {{- range $route := $config.router.routes }}
-    - match: Host(`{{ $.Values.global.host }}`) && PathPrefix(`{{ $route.path }}`)
-      kind: Rule
-      middlewares:
-        - name: {{ include "ehiring.fullname" $ }}-strip-prefix
-      services:
-        - name: {{ $.Release.Name }}-{{ $name }}-service
-          port: 3000
-    {{- end }}
-    {{- end }}
-    {{- end }}
