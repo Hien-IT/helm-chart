@@ -8,8 +8,7 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
 spec:
   rules:
-    - host: {{ .Values.global.host }}
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
