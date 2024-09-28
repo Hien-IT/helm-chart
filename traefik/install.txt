@@ -1,0 +1,4 @@
+helm repo add traefik https://traefik.github.io/charts
+helm repo update
+helm install traefik traefik/traefik --set dashboard.enabled=true,service.type=NodePort,rbac.enabled=true --namespace kube-system
+helm upgrade --install traefik traefik/traefik --set installCRDs=true --namespace kube-system

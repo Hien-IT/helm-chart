@@ -13,7 +13,7 @@ global:
       - name: APP_API
         value: /api
       - name: AUTH_SECURE_ROUTES
-        value: "http://10.86.62.31:30080/"
+        value: "http://10.86.62.31:8080/"
       - name: AUTH_ISSUER
         value: https://id.paas.ttgt.vn/realms/smc-staging
       - name: AUTH_CLIENT_ID
