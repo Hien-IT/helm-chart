@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Release.Namespace }}-{{ include "ehiring.fullname" . }}-strip-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
 spec:
   rules:
     - host: {{ .Values.global.host }}
@@ -31,14 +31,3 @@ spec:
           {{- end }}
           {{- end }}
           {{- end }}
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: {{ include "ehiring.fullname" . }}-strip-prefix
-  namespace: {{ .Release.Namespace }}
-spec:
-  stripPrefix:
-    prefixes:
-      - /api
