@@ -1,0 +1,72 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "ehiring.fullname" . }}-frontend
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`{{ .Values.global.host }}`)
+      kind: Rule
+      services:
+        - name: {{ .Release.Name }}-ehiring-host-service
+          port: 8080
+
+---
+{{- range $name, $config := .Values }}
+{{- if and (hasKey $config "router") ($config.router.enabled) }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "ehiring.fullname" $ }}-{{ $name }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    {{- range $route := $config.router.routes }}
+    - match: Host(`{{ $.Values.global.host }}`) && PathPrefix(`{{ $route.path }}`)
+      kind: Rule
+      services:
+        - name: {{ $.Release.Name }}-{{ $name }}-service
+          port: 3000
+    {{- end }}
+---
+{{- end }}
+{{- end }}
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "ehiring.fullname" . }}-strip-prefix
+  namespace: {{ .Release.Namespace }}
+spec:
+  stripPrefix:
+    prefixes:
+      - /api
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "ehiring.fullname" . }}-backend
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`{{ .Values.global.host }}`) && PathPrefix(`/api`)
+      kind: Rule
+      middlewares:
+        - name: {{ include "ehiring.fullname" . }}-strip-prefix
+      services:
+        {{- range $name, $config := .Values }}
+        {{- if and (hasKey $config "router") ($config.router.enabled) }}
+        {{- range $route := $config.router.routes }}
+        - name: {{ $.Release.Name }}-{{ $name }}-service
+          port: 3000
+        {{- end }}
+        {{- end }}
+        {{- end }}
