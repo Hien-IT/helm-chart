@@ -82,14 +82,26 @@ Create the name image of the service
 Create the env of the service
 */}}
 {{- define "backend-service.env" -}}
-{{- $serviceName := default .Chart.Name ( include "backend-service.name" . ) -}}
-{{- $customRepo := "" -}}
-{{- if hasKey .Values $serviceName -}}
-  {{- if hasKey (index .Values $serviceName) "image" -}}
-    {{- if hasKey (index .Values $serviceName "image") "repository" -}}
-      {{- $customRepo = index .Values $serviceName "image" "repository" -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
+{{- $globalEnv := .Values.global.backendService.env | default list }}
+{{- $localEnv := .Values.env | default list }}
+{{- $mergedEnv := list }}
 
+{{- range $globalEnv }}
+{{- $name := .name }}
+{{- $value := .value }}
+{{- range $localEnv }}
+{{- if eq .name $name }}
+{{- $value = .value }}
+{{- end }}
+{{- end }}
+{{- $mergedEnv = append $mergedEnv (dict "name" $name "value" $value) }}
+{{- end }}
+
+{{- range $localEnv }}
+{{- if not (has .name (pluck "name" $globalEnv)) }}
+{{- $mergedEnv = append $mergedEnv . }}
+{{- end }}
+{{- end }}
+
+{{- toYaml $mergedEnv }}
 {{- end -}}
