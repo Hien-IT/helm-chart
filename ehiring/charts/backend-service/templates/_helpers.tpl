@@ -89,19 +89,24 @@ Create the env of the service
 {{- range $globalEnv }}
 {{- $name := .name }}
 {{- $value := .value }}
+{{- $found := false }}
 {{- range $localEnv }}
 {{- if eq .name $name }}
 {{- $value = .value }}
+{{- $found = true }}
 {{- end }}
 {{- end }}
+{{- if not $found }}
 {{- $mergedEnv = append $mergedEnv (dict "name" $name "value" $value) }}
+{{- end }}
 {{- end }}
 
 {{- range $localEnv }}
-{{- if not (has .name (pluck "name" $globalEnv)) }}
 {{- $mergedEnv = append $mergedEnv . }}
 {{- end }}
-{{- end }}
 
-{{- toYaml $mergedEnv }}
+{{- range $mergedEnv }}
+- name: {{ .name }}
+  value: {{ .value | quote }}
+{{- end }}
 {{- end -}}
