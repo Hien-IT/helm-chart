@@ -209,6 +209,8 @@ portal-backend:
 
 services-mailer-tanlong:
   env:
+    - name: MAILER_SENDER
+      value: "smtp"
     - name: MAILER_HOST
       value: sandbox.smtp.mailtrap.io
     - name: MAILER_PORT
@@ -226,6 +228,8 @@ services-mailer-tanlong:
 
 services-mailer-shlv:
   env:
+    - name: MAILER_SENDER
+      value: "smtp"
     - name: MAILER_HOST
       value: sandbox.smtp.mailtrap.io
     - name: MAILER_PORT
