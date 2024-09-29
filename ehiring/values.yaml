@@ -41,31 +41,16 @@ global:
       - name: APP_PREFIX
         value: api
       - name: APP_STANDALONE
-        value: "true"
+        value: "false"
       - name: NATS_SERVERS_1
         value: nats://nats-service:4222
-      - name: APP_EMAIL_SENDER_LIMIT
-        value: "10"
-      - name: APP_EMAIL_SENDER_INTERVAL
-        value: "*/30 * * * * *"
-      - name: APP_EMAIL_SENDER_DELAY
-        value: "5000"
-      - name: APP_OFFER_SENDER_LIMIT
-        value: "10"
-      - name: APP_OFFER_SENDER_INTERVAL
-        value: "0 * * * * *"
-      - name: APP_RECRUITMENTPLAN_RUNNER_INTERVAL
-        value: "0 0 0 * * *"
-      - name: APP_EMAIL_SENDER_ERROR_COUNT
-        value: "3"
-      - name: APP_MASTERDATA_SENDER_INTERVAL
-        value: "0 0 1 * * *"
       - name: OIDC_CLIENT_ID
         value: ehiring
       - name: OIDC_ISSUER
         value: https://id.paas.ttgt.vn/realms/smc-staging
       - name: OIDC_JWKS_URI
         value: https://id.paas.ttgt.vn/realms/smc-staging/protocol/openid-connect/certs
+
 imagePullSecrets:
   - name: rc-registry-secret
 nameOverride: ""

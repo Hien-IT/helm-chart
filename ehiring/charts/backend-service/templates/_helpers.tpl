@@ -60,3 +60,19 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name image of the service
+*/}}
+{{- define "backend-service.serviceName" -}}
+{{- $name := .Chart.Name -}}
+{{- if .Values.nameOverride -}}
+{{- $name = .Values.nameOverride -}}
+{{- else -}}
+{{- if hasPrefix .Release.Name $name -}}
+{{- $name = .Release.Name -}}
+{{- else -}}
+{{- $name = printf "%s-%s" .Release.Name $name -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
