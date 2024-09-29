@@ -66,13 +66,12 @@ Create the name image of the service
 */}}
 {{- define "backend-service.serviceName" -}}
 {{- $name := .Chart.Name -}}
-{{- if .Values.nameOverride -}}
+{{- if and .Values.nameOverride (not (eq .Values.nameOverride "")) -}}
 {{- $name = .Values.nameOverride -}}
 {{- else -}}
-{{- if hasPrefix .Release.Name $name -}}
-{{- $name = .Release.Name -}}
-{{- else -}}
-{{- $name = printf "%s-%s" .Release.Name $name -}}
+{{- if .Chart.AppVersion -}}
+{{- $name = .Chart.AppVersion -}}
 {{- end -}}
 {{- end -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
