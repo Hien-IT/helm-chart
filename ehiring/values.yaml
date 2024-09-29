@@ -60,16 +60,6 @@ global:
         value: "3"
       - name: APP_MASTERDATA_SENDER_INTERVAL
         value: "0 0 1 * * *"
-      - name: MAILER_HOST
-        value: smtp.ethereal.email
-      - name: MAILER_PORT
-        value: "587"
-      - name: MAILER_USERNAME
-        value:
-      - name: MAILER_PASSWORD
-        value:
-      - name: MAILER_FROM
-        value: '"FPT Recruitment" <fpt@talentx.vn>'
       - name: OIDC_CLIENT_ID
         value: ehiring
       - name: OIDC_ISSUER
@@ -232,6 +222,40 @@ portal-backend:
     routes:
       - path: /api/portals
 
+services-mailer-tanlong:
+  env:
+    - name: MAILER_HOST
+      value: sandbox.smtp.mailtrap.io
+    - name: MAILER_PORT
+      value: "587"
+    - name: MAILER_USERNAME
+      value: 52a4acdc0ac586
+    - name: MAILER_PASSWORD
+      value: e2df8b6f5dfdc2
+    - name: MAILER_FROM
+      value: '"FPT Recruitment" <fpt@talentx.vn>'
+  image:
+    repository: services-mailer
+  router:
+    enabled: false
+
+services-mailer-shlv:
+  env:
+    - name: MAILER_HOST
+      value: sandbox.smtp.mailtrap.io
+    - name: MAILER_PORT
+      value: "587"
+    - name: MAILER_USERNAME
+      value: 5f9163fdea29ae
+    - name: MAILER_PASSWORD
+      value: 330fe63d79b821
+    - name: MAILER_FROM
+      value: '"FPT Recruitment" <fpt@talentx.vn>'
+  image:
+    repository: services-mailer
+  router:
+    enabled: false    
+
 services-cv-parser:
   router:
     enabled: false
@@ -245,10 +269,6 @@ services-email-scheduler:
     enabled: false
 
 services-job-scheduler:
-  router:
-    enabled: false
-
-services-mailer:
   router:
     enabled: false
 

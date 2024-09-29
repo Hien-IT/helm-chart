@@ -50,7 +50,25 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            {{- toYaml (concat .Values.global.backendService.env .Values.env) | nindent 12 }}
+            {{- $globalEnv := .Values.global.backendService.env }}
+            {{- $localEnv := .Values.env | default list }}
+            {{- $mergedEnv := list }}
+            {{- range $globalEnv }}
+            {{- $name := .name }}
+            {{- $value := .value }}
+            {{- range $localEnv }}
+            {{- if eq .name $name }}
+            {{- $value = .value }}
+            {{- end }}
+            {{- end }}
+            {{- $mergedEnv = append $mergedEnv (dict "name" $name "value" $value) }}
+            {{- end }}
+            {{- range $localEnv }}
+            {{- if not (has .name (pluck "name" $globalEnv)) }}
+            {{- $mergedEnv = append $mergedEnv . }}
+            {{- end }}
+            {{- end }}
+            {{- toYaml $mergedEnv | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

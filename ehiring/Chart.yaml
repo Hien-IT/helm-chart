@@ -103,6 +103,30 @@ dependencies:
     tags:
       - backend-services
     version: ^0.1.0
+  - alias: mailer-service-tanlong
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: mailer-service-shlv
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0  
+  - alias: services-cv-parser
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: services-email-scheduler
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
 description: A Helm chart for Kubernetes
 name: ehiring
 type: application
