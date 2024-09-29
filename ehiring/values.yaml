@@ -221,6 +221,8 @@ services-mailer-tanlong:
       value: e2df8b6f5dfdc2
     - name: MAILER_FROM
       value: '"FPT Recruitment" <fpt@talentx.vn>'
+    - name: MESSAGE_PATTERN_SEND_EMAIL
+      value: "sendEmail.tanlong"
   image:
     repository: services-mailer
   router:
@@ -240,6 +242,8 @@ services-mailer-shlv:
       value: 330fe63d79b821
     - name: MAILER_FROM
       value: '"FPT Recruitment" <fpt@talentx.vn>'
+    - name: MESSAGE_PATTERN_SEND_EMAIL
+      value: "sendEmail.shlv"  
   image:
     repository: services-mailer
   router:
