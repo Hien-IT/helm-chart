@@ -65,7 +65,7 @@ Create the name of the service account to use
 Create the name image of the service
 */}}
 {{- define "backend-service.imageName" -}}
-{{- $serviceName := default .Chart.Name .Values.nameOverride -}}
+{{- $serviceName := default .Chart.Name ( include "backend-service.fullname" . ) -}}
 {{- $customRepo := "" -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "image" -}}
