@@ -103,13 +103,13 @@ dependencies:
     tags:
       - backend-services
     version: ^0.1.0
-  - alias: mailer-service-tanlong
+  - alias: services-mailer-tanlong
     name: backend-service
     repository: file://../backend-service
     tags:
       - backend-services
     version: ^0.1.0
-  - alias: mailer-service-shlv
+  - alias: services-mailer-shlv
     name: backend-service
     repository: file://../backend-service
     tags:
