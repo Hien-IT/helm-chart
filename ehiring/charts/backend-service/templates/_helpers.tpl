@@ -64,14 +64,9 @@ Create the name of the service account to use
 {{/*
 Create the name image of the service
 */}}
-{{- define "backend-service.serviceName" -}}
-{{- $name := .Chart.Name -}}
-{{- if and .Values.nameOverride (not (eq .Values.nameOverride "")) -}}
-{{- $name = .Values.nameOverride -}}
-{{- else -}}
-{{- if .Chart.AppVersion -}}
-{{- $name = .Chart.AppVersion -}}
-{{- end -}}
-{{- end -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- define "backend-service.imageName" -}}
+{{- $serviceName := .Release.Name -}}
+{{- $customRepo := index .Values $serviceName "image" "repository" -}}
+{{- $name := default .Chart.Name (default .Values.image.repository $customRepo) -}}
+{{- printf "%s/%s/%s:%s" .Values.image.registry .Values.image.namespace $name .Values.image.tag | quote -}}
 {{- end -}}
