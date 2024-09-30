@@ -88,4 +88,16 @@ Create the name image of the service
 {{- printf "%s/%s/%s:%s" .Values.image.registry $namespace $name $tag | quote -}}
 {{- end -}}
 
-
+{{/*
+Create the servce port  of the service
+*/}}
+{{- define "frontend.port" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $customPort := .Values.service.port -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "port" -}}
+    {{- $customPort = index .Values $serviceName "port" -}}
+  {{- end -}}
+{{- end -}}
+{{- $port := default .Values.service.port $customPort -}}
+{{- printf "%d" $port -}}
