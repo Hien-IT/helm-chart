@@ -67,15 +67,20 @@ Create the name image of the service
 {{- define "backend-service.imageName" -}}
 {{- $serviceName := default .Chart.Name ( include "backend-service.name" . ) -}}
 {{- $customRepo := "" -}}
+{{- $customTag := "" -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "image" -}}
     {{- if hasKey (index .Values $serviceName "image") "repository" -}}
       {{- $customRepo = index .Values $serviceName "image" "repository" -}}
     {{- end -}}
+    {{- if hasKey (index .Values $serviceName "image") "tag" -}}
+      {{- $customTag = index .Values $serviceName "image" "tag" -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- $name := default .Chart.Name (default .Values.image.repository $customRepo) -}}
-{{- printf "%s/%s/%s:%s" .Values.image.registry .Values.image.namespace $name .Values.image.tag | quote -}}
+{{- $tag := default .Values.image.tag $customTag -}}
+{{- printf "%s/%s/%s:%s" .Values.image.registry .Values.image.namespace $name $tag | quote -}}
 {{- end -}}
 
 {{/*
