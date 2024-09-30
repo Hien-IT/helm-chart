@@ -7,13 +7,13 @@ replicaCount: 1
 annotations: {}
 
 global:
-  host: "10.86.62.31"
+  host: "10.86.62.31.sslip.io"
   frontend:
     env:
       - name: APP_API
         value: /api
       - name: AUTH_SECURE_ROUTES
-        value: "http://10.86.62.31/"
+        value: "https://10.86.62.31.sslip.io:30443/"
       - name: AUTH_ISSUER
         value: https://id.paas.ttgt.vn/realms/smc-staging
       - name: AUTH_CLIENT_ID
@@ -37,7 +37,7 @@ global:
       - name: MONGODB_PORT
         value: "27017"
       - name: APP_FRONTEND_URL
-        value: http://10.86.62.31
+        value: https://10.86.62.31.sslip.io:30443/
       - name: APP_PREFIX
         value: api
       - name: APP_STANDALONE
@@ -110,60 +110,108 @@ tolerations: []
 
 affinity: {}
 
+cms-ehiring-portal:
+  service:
+    ingress:
+      type: frontend
+  image:
+    namespace: other
+    repository: cms-ehiring-portal
+  host: "tuyendung.10.86.62.31.sslip.io"
+  port: 3000
+  router:
+    enabled: true
+    routes:
+      - path: /
+
 ehiring-host:
+  host:
+  service:
+    ingress:
+      type: frontend
   router:
     enabled: true
     routes:
       - path: /
 
 competencies-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/competencies
       - path: /api/competency-groups
 
 dashboard-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/dashboard
 
 emails-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/emails
 
 file-manager-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/file-manager
 
 gpt-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/gpt
 
 integrations-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/integrations
 
 job-descriptions-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/job-descriptions
       - path: /api/job-description-groups
 
 mail-templates-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/mail-templates
 
 masterdata-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/masterdata
 
 recruitment-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/recruitment-plans
@@ -172,6 +220,9 @@ recruitment-backend:
       - path: /api/offers
 
 schedules-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/schedules
@@ -180,6 +231,9 @@ schedules-backend:
       - path: /api/evaluation-form-groups
 
 talent-pools-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/talent-pools
@@ -187,22 +241,34 @@ talent-pools-backend:
       - path: /api/resumes
 
 users-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/users
       - path: /api/user-groups
 
 tenants-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/tenants
 
 websites-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/websites
 
 portal-backend:
+  service:
+    ingress:
+      type: backend
   router:
     routes:
       - path: /api/portals

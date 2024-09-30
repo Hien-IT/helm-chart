@@ -60,3 +60,33 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name port of the service
+*/}}
+{{- define "ehiring.frontend.port" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $customPort := .Values.service.port -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "port" -}}
+    {{- $customPort = index .Values $serviceName "port" -}}
+  {{- end -}}
+{{- end -}}
+{{- $port := default .Values.service.port $customPort -}}
+{{- printf "%d" $port -}}
+{{- end -}}
+
+{{/*
+Create the name port of the service
+*/}}
+{{- define "ehiring.backend-service.port" -}}
+{{- $serviceName := default .Chart.Name ( include "backend-service.name" . ) -}}
+{{- $customPort := .Values.service.port -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "port" -}}
+    {{- $customPort = index .Values $serviceName "port" -}}
+  {{- end -}}
+{{- end -}}
+{{- $port := default .Values.service.port $customPort -}}
+{{- printf "%d" $port -}}
+{{- end -}}

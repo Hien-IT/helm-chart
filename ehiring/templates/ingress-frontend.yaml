@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "frontend.fullname" . }}-frontend
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+spec:
+  rules:
+    - http:
+        paths:
+        {{- if eq (.Values.ingressType | default "frontend") "frontend" }}
+        {{- range .Values.router.routes }}
+          - path: {{ .path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "frontend.fullname" $ }}-service
+                port: 
+                  number: {{ include "ehiring.frontend.port" . }}
+        {{- end }}
+        {{- end }}

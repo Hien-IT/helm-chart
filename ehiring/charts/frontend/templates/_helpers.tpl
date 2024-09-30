@@ -60,3 +60,32 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name image of the service
+*/}}
+{{- define "frontend.imageName" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $customRepo := "" -}}
+{{- $customTag := "" -}}
+{{- $customNamespace := "" -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "image" -}}
+    {{- if hasKey (index .Values $serviceName "image") "repository" -}}
+      {{- $customRepo = index .Values $serviceName "image" "repository" -}}
+    {{- end -}}
+    {{- if hasKey (index .Values $serviceName "image") "tag" -}}
+      {{- $customTag = index .Values $serviceName "image" "tag" -}}
+    {{- end -}}
+    {{- if hasKey (index .Values $serviceName "image") "namespace" -}}
+      {{- $customNamespace = index .Values $serviceName "image" "namespace" -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $name := default .Chart.Name (default .Values.image.repository $customRepo) -}}
+{{- $tag := default .Values.image.tag $customTag -}}
+{{- $namespace := default .Values.image.namespace $customNamespace -}}
+{{- printf "%s/%s/%s:%s" .Values.image.registry $namespace $name $tag | quote -}}
+{{- end -}}
+
+

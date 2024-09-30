@@ -7,6 +7,12 @@ dependencies:
     tags:
       - frontend
     version: ^0.1.0
+  - alias: cms-ehiring-portal
+    name: frontend
+    repository: file://../frontend
+    tags:
+      - frontend
+    version: ^0.1.0
   - alias: tenants-backend
     name: backend-service
     repository: file://../backend-service

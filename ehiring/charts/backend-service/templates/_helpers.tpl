@@ -68,6 +68,7 @@ Create the name image of the service
 {{- $serviceName := default .Chart.Name ( include "backend-service.name" . ) -}}
 {{- $customRepo := "" -}}
 {{- $customTag := "" -}}
+{{- $customNamespace := "" -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "image" -}}
     {{- if hasKey (index .Values $serviceName "image") "repository" -}}
@@ -76,11 +77,15 @@ Create the name image of the service
     {{- if hasKey (index .Values $serviceName "image") "tag" -}}
       {{- $customTag = index .Values $serviceName "image" "tag" -}}
     {{- end -}}
+    {{- if hasKey (index .Values $serviceName "image") "namespace" -}}
+      {{- $customNamespace = index .Values $serviceName "image" "namespace" -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- $name := default .Chart.Name (default .Values.image.repository $customRepo) -}}
 {{- $tag := default .Values.image.tag $customTag -}}
-{{- printf "%s/%s/%s:%s" .Values.image.registry .Values.image.namespace $name $tag | quote -}}
+{{- $namespace := default .Values.image.namespace $customNamespace -}}
+{{- printf "%s/%s/%s:%s" .Values.image.registry $namespace $name $tag | quote -}}
 {{- end -}}
 
 {{/*
@@ -115,3 +120,5 @@ Create the env of the service
   value: {{ .value | quote }}
 {{- end }}
 {{- end -}}
+
+
