@@ -22,7 +22,7 @@ spec:
               service:
                 name: {{ $.Release.Name }}-{{ $name }}-service
                 port: 
-                  number: {{ $config.port }}
+                  number: {{ default 3000 $config.port }}
         {{- end }}
     {{- end }}
     {{- end }}

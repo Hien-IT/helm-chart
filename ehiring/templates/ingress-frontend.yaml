@@ -21,7 +21,7 @@ spec:
               service:
                 name: {{ $.Release.Name }}-{{ $name }}-service
                 port: 
-                  number: {{ $config.port }}
+                  number: {{ default 8080 $config.port }}
         {{- end }}
     {{- end }}
     {{- end }}
