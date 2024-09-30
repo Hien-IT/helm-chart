@@ -66,7 +66,7 @@ Create the name of the service account to use
 Create the name port of the service
 */}}
 {{- define "ehiring.ingress.port" -}}
-{{- $serviceName := default .Chart.Name ( include "ehiring.name" . ) -}}
+{{- $serviceName := ( include "ehiring.name" . ) -}}
 {{- $customPort := .Values.service.port -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "port" -}}
@@ -82,7 +82,7 @@ Create the name port of the service
 Create the name host of the service
 */}}
 {{- define "ehiring.ingress.host" -}}
-{{- $serviceName := default .Chart.Name ( include "ehiring.name" . ) -}}
+{{- $serviceName := ( include "ehiring.name" . ) -}}
 {{- $customHost := .Values.service.host -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "host" -}}
