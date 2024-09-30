@@ -90,3 +90,33 @@ Create the name port of the service
 {{- $port := default .Values.service.port $customPort -}}
 {{- printf "%d" $port -}}
 {{- end -}}
+
+{{/*
+Create the name host of the service
+*/}}
+{{- define "ehiring.frontend.host" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $customHost := .Values.service.host -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "host" -}}
+    {{- $customHost = index .Values $serviceName "host" -}}
+  {{- end -}}
+{{- end -}}
+{{- $host := default .Values.service.host $customHost -}}
+{{- printf "%s" $host -}}
+{{- end -}}
+
+{{/*
+Create the name host of the service
+*/}}
+{{- define "ehiring.backend-service.host" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $customHost := .Values.service.host -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "host" -}}
+    {{- $customHost = index .Values $serviceName "host" -}}
+  {{- end -}}
+{{- end -}}
+{{- $host := default .Values.service.host $customHost -}}
+{{- printf "%s" $host -}}
+{{- end -}}

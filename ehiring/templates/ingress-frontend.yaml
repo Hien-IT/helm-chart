@@ -8,7 +8,8 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
 spec:
   rules:
-    - http:
+    - host: {{ include "ehiring.frontend.host" . }}
+      http:
         paths:
         {{- if eq (.Values.ingressType | default "frontend") "frontend" }}
         {{- range .Values.router.routes }}
