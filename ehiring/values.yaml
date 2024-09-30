@@ -125,7 +125,6 @@ cms-ehiring-portal:
       - path: /
 
 ehiring-host:
-  host:
   service:
     ingress:
       type: frontend
