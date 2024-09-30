@@ -101,3 +101,4 @@ Create the servce port  of the service
 {{- end -}}
 {{- $port := default .Values.service.port $customPort -}}
 {{- printf "%d" $port -}}
+{{- end -}}
