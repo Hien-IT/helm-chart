@@ -35,13 +35,15 @@ spec:
     {{- end }}
   tls:
     - hosts:
-      {{- range $name, $config := .Values }}
-      {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "backend") }}
-      {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
-      {{- range $host := default $.Values.global.hosts $config.hosts }}
-      - {{ $host }}
+        {{- range $name, $config := .Values }}
+        {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "backend") }}
+        {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
+        {{- range $host := default $.Values.global.hosts $config.hosts }}
+        - {{ $host }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
       secretName: letsencrypt-prod
-      {{- end }}
-      {{- end }}
-      {{- end }}
-      {{- end }}
+      
