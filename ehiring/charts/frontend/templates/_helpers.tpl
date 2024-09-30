@@ -89,10 +89,10 @@ Create the name image of the service
 {{- end -}}
 
 {{/*
-Create the servce port  of the service
+Create the name port of the service
 */}}
 {{- define "frontend.port" -}}
-{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $serviceName := ( include "frontend.name" . ) -}}
 {{- $customPort := .Values.service.port -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "port" -}}
