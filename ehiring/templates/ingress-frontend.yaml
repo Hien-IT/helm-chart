@@ -4,7 +4,7 @@ metadata:
   name: {{ include "ehiring.fullname" . }}-frontend
   namespace: {{ .Release.Namespace }}
   annotations:
-    kubernetes.io/ingress.class: traefik
+    spec.ingressClassName: traefik
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
 spec:
   rules:

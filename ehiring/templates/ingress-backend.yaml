@@ -4,12 +4,12 @@ metadata:
   name: {{ include "ehiring.fullname" . }}-backend
   namespace: {{ .Release.Namespace }}
   annotations:
-    kubernetes.io/ingress.class: traefik
+    spec.ingressClassName: traefik
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
 spec:
   rules:
     {{- range $name, $config := .Values }}
-    {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
+    {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "backend") }}
     {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
     {{- range $host := default $.Values.global.hosts $config.hosts }}
     - host: {{ $host }}
