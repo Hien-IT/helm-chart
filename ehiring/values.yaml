@@ -117,13 +117,18 @@ cms-ehiring-portal:
   image:
     namespace: other
     repository: cms-ehiring-portal
-  host: "tuyendung.10.86.62.31.sslip.io"
+  host: 
+    - "tuyendung.tanlong.10.86.62.31.sslip.io"
+    - "tuyendung.shlv.10.86.62.31.sslip.io"
   port: 3000
   router:
     routes:
       - path: /
 
 ehiring-host:
+  host: 
+    - "tanlong.10.86.62.31.sslip.io"
+    - "shlv.10.86.62.31.sslip.io"
   service:
     ingress:
       type: frontend

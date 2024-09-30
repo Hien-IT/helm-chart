@@ -62,34 +62,3 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{/*
-Create the name port of the service
-*/}}
-{{- define "ehiring.ingress.port" -}}
-{{- $serviceName := ( include "ehiring.name" . ) -}}
-{{- $customPort := .Values.service.port -}}
-{{- if hasKey .Values $serviceName -}}
-  {{- if hasKey (index .Values $serviceName) "port" -}}
-    {{- $customPort = index .Values $serviceName "port" -}}
-  {{- end -}}
-{{- end -}}
-{{- $port := default .Values.service.port $customPort -}}
-{{- printf "%d" $port -}}
-{{- end -}}
-
-
-{{/*
-Create the name host of the service
-*/}}
-{{- define "ehiring.ingress.host" -}}
-{{- $serviceName := ( include "ehiring.name" . ) -}}
-{{- $customHost := .Values.service.host -}}
-{{- if hasKey .Values $serviceName -}}
-  {{- if hasKey (index .Values $serviceName) "host" -}}
-    {{- $customHost = index .Values $serviceName "host" -}}
-  {{- end -}}
-{{- end -}}
-{{- $host := default .Values.service.host $customHost -}}
-{{- printf "%s" $host -}}
-{{- end -}}
-
