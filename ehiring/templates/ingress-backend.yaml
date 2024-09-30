@@ -11,16 +11,18 @@ spec:
     - host: {{ include "ehiring.backend-service.host" . }}
       http:
         paths:
-        {{- if eq (.Values.ingressType | default "backend") "backend" }}
-        {{- if .Values.router.enabled }}
-        {{- range .Values.router.routes }}
-          - path: {{ .path }}
+          {{- range $name, $config := .Values }}
+          {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
+          {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "backend") }}
+          {{- range $route := $config.router.routes }}
+          - path: {{ $route.path }}
             pathType: Prefix
             backend:
               service:
-                name: {{ include "backend-service.fullname" $ }}-service
+                name: {{ $.Release.Name }}-{{ $name }}-service
                 port: 
                   number: {{ include "ehiring.backend-service.port" . }}
-        {{- end }}
-        {{- end }}
-        {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
