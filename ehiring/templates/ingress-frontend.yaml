@@ -10,7 +10,7 @@ spec:
   rules:
     {{- range $name, $config := .Values }}
     {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
-    {{- range $host := $config.hosts }}
+    {{- range $host := default .Values.global.hosts $config.hosts }}
     - host: {{ $host }}
       http:
         paths:

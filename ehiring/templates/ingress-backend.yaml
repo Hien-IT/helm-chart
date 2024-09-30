@@ -11,7 +11,7 @@ spec:
     {{- range $name, $config := .Values }}
     {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
     {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
-    {{- range $host := $config.hosts }}
+    {{- range $host := default .Values.global.host $config.hosts }}
     - host: {{ $host }}
       http:
         paths:
