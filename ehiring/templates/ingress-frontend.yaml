@@ -20,7 +20,7 @@ spec:
               service:
                 name: {{ $.Release.Name }}-{{ $name }}-service
                 port: 
-                  number: {{ include "ehiring.frontend-service.port" . }}
+                  number: {{ include "ehiring.frontend.port" . }}
           {{- end }}
           {{- end }}
           {{- end }}
