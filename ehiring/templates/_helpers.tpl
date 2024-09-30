@@ -5,6 +5,7 @@ Expand the name of the chart.
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
+
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
@@ -64,8 +65,8 @@ Create the name of the service account to use
 {{/*
 Create the name port of the service
 */}}
-{{- define "ehiring.frontend.port" -}}
-{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- define "ehiring.ingress.port" -}}
+{{- $serviceName := default .Chart.Name ( include "ehiring.name" . ) -}}
 {{- $customPort := .Values.service.port -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "port" -}}
@@ -76,26 +77,12 @@ Create the name port of the service
 {{- printf "%d" $port -}}
 {{- end -}}
 
-{{/*
-Create the name port of the service
-*/}}
-{{- define "ehiring.backend-service.port" -}}
-{{- $serviceName := default .Chart.Name ( include "backend-service.name" . ) -}}
-{{- $customPort := .Values.service.port -}}
-{{- if hasKey .Values $serviceName -}}
-  {{- if hasKey (index .Values $serviceName) "port" -}}
-    {{- $customPort = index .Values $serviceName "port" -}}
-  {{- end -}}
-{{- end -}}
-{{- $port := default .Values.service.port $customPort -}}
-{{- printf "%d" $port -}}
-{{- end -}}
 
 {{/*
 Create the name host of the service
 */}}
-{{- define "ehiring.frontend.host" -}}
-{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- define "ehiring.ingress.host" -}}
+{{- $serviceName := default .Chart.Name ( include "ehiring.name" . ) -}}
 {{- $customHost := .Values.service.host -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "host" -}}
@@ -106,17 +93,3 @@ Create the name host of the service
 {{- printf "%s" $host -}}
 {{- end -}}
 
-{{/*
-Create the name host of the service
-*/}}
-{{- define "ehiring.backend-service.host" -}}
-{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
-{{- $customHost := .Values.service.host -}}
-{{- if hasKey .Values $serviceName -}}
-  {{- if hasKey (index .Values $serviceName) "host" -}}
-    {{- $customHost = index .Values $serviceName "host" -}}
-  {{- end -}}
-{{- end -}}
-{{- $host := default .Values.service.host $customHost -}}
-{{- printf "%s" $host -}}
-{{- end -}}

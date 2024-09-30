@@ -8,7 +8,7 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
 spec:
   rules:
-    - host: {{ include "ehiring.frontend.host" . }}
+    - host: {{ include "ehiring.ingress.host" . }}
       http:
         paths:
           {{- range $name, $config := .Values }}
@@ -20,7 +20,7 @@ spec:
               service:
                 name: {{ $.Release.Name }}-{{ $name }}-service
                 port: 
-                  number: {{ include "ehiring.frontend.port" . }}
+                  number: {{ include "ehiring.ingress.port" . }}
           {{- end }}
           {{- end }}
           {{- end }}
