@@ -7,7 +7,10 @@ metadata:
     spec.ingressClassName: traefik
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
     traefik.ingress.kubernetes.io/ssl-redirect: {{ .Values.global.ssl.enabled | quote }}
-    traefik.ingress.kubernetes.io/ssl-permanent-redirect: {{ .Values.global.ssl.enabled | quote }}  
+    traefik.ingress.kubernetes.io/ssl-permanent-redirect: {{ .Values.global.ssl.enabled | quote }}
+    # ssl for test dont use production
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ##
 spec:
   rules:
     {{- range $name, $config := .Values }}
@@ -30,3 +33,15 @@ spec:
     {{- end }}
     {{- end }}
     {{- end }}
+  tls:
+    - hosts:
+      {{- range $name, $config := .Values }}
+      {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "backend") }}
+      {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
+      {{- range $host := default $.Values.global.hosts $config.hosts }}
+      - {{ $host }}
+      secretName: letsencrypt-prod
+      {{- end }}
+      {{- end }}
+      {{- end }}
+      {{- end }}
