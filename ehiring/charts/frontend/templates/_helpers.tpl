@@ -93,7 +93,7 @@ Create the name port of the service
 */}}
 {{- define "frontend.port" -}}
 {{- $serviceName := ( include "frontend.name" . ) -}}
-{{- $customPort := .Values.service.port -}}
+{{- $customPort := "" -}}
 {{- if hasKey .Values $serviceName -}}
   {{- if hasKey (index .Values $serviceName) "port" -}}
     {{- $customPort = index .Values $serviceName "port" -}}
