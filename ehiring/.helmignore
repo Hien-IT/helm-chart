@@ -21,3 +21,6 @@
 .idea/
 *.tmproj
 .vscode/
+
+templates/.ingress-backend
+templates/.ingress-frontend
