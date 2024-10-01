@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: {{ include "ehiring.fullname" . }}-backend
   annotations:
-    spec.ingressClassName: traefik
+    kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
     {{- if .Values.global.ssl.enabled }}
     traefik.ingress.kubernetes.io/router.tls: "true"
