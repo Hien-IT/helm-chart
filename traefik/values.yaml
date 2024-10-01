@@ -60,7 +60,7 @@ env:
     valueFrom:
       secretKeyRef:
         key: email
-        name: cloudflare-credentials
+        name: nguyenduchien2701@gmail.com
   - name: CF_API_KEY
     valueFrom:
       secretKeyRef:
