@@ -57,16 +57,10 @@ env:
 # ---
 # Cloudflare Example:
   - name: CF_API_EMAIL
-    valueFrom:
-      secretKeyRef:
-        key: email
-        name: nguyenduchien2701@gmail.com
+    value: nguyenduchien2701@gmail.com
   - name: CF_API_KEY
-    valueFrom:
-      secretKeyRef:
-        key: apiKey
-        name: cloudflare-credentials
-
+    value: aa
+    
 ingressRoute:
   dashboard:
     enabled: true
