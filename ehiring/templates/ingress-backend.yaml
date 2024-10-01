@@ -6,6 +6,7 @@ metadata:
   annotations:
     spec.ingressClassName: traefik
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+    traefik.ingress.kubernetes.io/service-port: "30443"
     {{- if .Values.global.ssl.enabled }}
     traefik.ingress.kubernetes.io/ssl-redirect: "true"
     traefik.ingress.kubernetes.io/ssl-permanent-redirect: "true"
