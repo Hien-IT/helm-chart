@@ -6,10 +6,8 @@ metadata:
   annotations:
     spec.ingressClassName: traefik
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
-    traefik.ingress.kubernetes.io/service-port: "30443"
     {{- if .Values.global.ssl.enabled }}
-    traefik.ingress.kubernetes.io/ssl-redirect: "true"
-    traefik.ingress.kubernetes.io/ssl-permanent-redirect: "true"
+    traefik.ingress.kubernetes.io/router.tls: "true"
     # ssl for test dont use production
     cert-manager.io/cluster-issuer: {{ .Values.global.ssl.secretName }}
     ##
