@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: {{ include "ehiring.fullname" . }}-backend
   annotations:
-    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
     {{- if .Values.global.ssl.enabled }}
     traefik.ingress.kubernetes.io/router.tls: "true"
     # ssl for test dont use production
@@ -46,5 +46,5 @@ spec:
         {{- end }}
         {{- end }}
         {{- end }}
-      secretName: letsencrypt-prod
+      secretName: {{ .Values.global.ssl.secretName }}
   {{- end }}

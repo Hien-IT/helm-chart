@@ -122,7 +122,7 @@ cms-ehiring-portal:
     - "tuyen-dung.shlv.10.86.62.31.sslip.io"
   router:
     routes:
-      - path: /()(.*)
+      - path: /
 
 ehiring-host:
   hosts: 
@@ -132,7 +132,7 @@ ehiring-host:
     type: frontend
   router:
     routes:
-      - path: /()(.*)
+      - path: /
 
 competencies-backend:
   ingress:
