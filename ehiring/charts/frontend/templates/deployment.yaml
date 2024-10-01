@@ -33,11 +33,11 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ include "frontend.imageName" $ }}
+          image: {{ include "frontend.imageName" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ include "frontend.port" $ }}
+              containerPort: {{ include "frontend.port" . }}
               protocol: TCP
           livenessProbe:
             httpGet:

@@ -100,5 +100,5 @@ Create the name port of the service
   {{- end -}}
 {{- end -}}
 {{- $port := default .Values.service.port $customPort -}}
-{{- printf "%d" $port -}}
+{{- $port -}}
 {{- end -}}
