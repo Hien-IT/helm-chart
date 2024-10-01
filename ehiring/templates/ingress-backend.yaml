@@ -1,50 +1,27 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
   name: {{ include "ehiring.fullname" . }}-backend
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    {{- if .Values.global.ssl.enabled }}
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    # ssl for test dont use production
-    cert-manager.io/cluster-issuer: {{ .Values.global.ssl.secretName }}
-    ##
-    {{- end }}
-   
 spec:
-  ingressClassName: traefik
-  rules:
+  entryPoints:
+    - websecure
+  routes:
     {{- range $name, $config := .Values }}
     {{- if and (kindIs "map" $config) (hasKey $config "ingress") (eq $config.ingress.type "backend") }}
     {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
     {{- range $host := default $.Values.global.hosts $config.hosts }}
-    - host: {{ $host }}
-      http:
-        paths:
-        {{- range $route := $config.router.routes }}
-          - path: {{ $route.path }}
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ $.Release.Name }}-{{ $name }}-service
-                port: 
-                  number: {{ default 3000 $config.service.port }}
-        {{- end }}
+    {{- range $route := $config.router.routes }}
+    - match: Host(`{{ $host }}`) && PathPrefix(`{{ $route.path }}`)
+      kind: Rule
+      services:
+        - name: {{ $.Release.Name }}-{{ $name }}-service
+          port: {{ default 3000 $config.service.port }}
+    {{- end }}
     {{- end }}
     {{- end }}
     {{- end }}
     {{- end }}
   {{- if .Values.global.ssl.enabled }}
   tls:
-    - hosts:
-        {{- range $name, $config := .Values }}
-        {{- if and (kindIs "map" $config) (hasKey $config "ingress") (eq $config.ingress.type "backend") }}
-        {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
-        {{- range $host := default $.Values.global.hosts $config.hosts }}
-        - {{ $host }}
-        {{- end }}
-        {{- end }}
-        {{- end }}
-        {{- end }}
-      secretName: {{ .Values.global.ssl.secretName }}
+    secretName: letsencrypt-prod
   {{- end }}
