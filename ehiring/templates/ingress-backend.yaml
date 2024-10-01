@@ -6,7 +6,7 @@ metadata:
   annotations:
     spec.ingressClassName: traefik
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
-    {{- if eq .Values.global.ssl.enabled "true" }}
+    {{- if .Values.global.ssl.enabled }}
     traefik.ingress.kubernetes.io/ssl-redirect: "true"
     traefik.ingress.kubernetes.io/ssl-permanent-redirect: "true"
     # ssl for test dont use production
@@ -36,7 +36,7 @@ spec:
     {{- end }}
     {{- end }}
     {{- end }}
-  {{- if eq .Values.global.ssl.enabled "true" }}
+  {{- if .Values.global.ssl.enabled }}
   tls:
     - hosts:
         {{- range $name, $config := .Values }}
