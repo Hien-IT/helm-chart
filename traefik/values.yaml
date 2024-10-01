@@ -71,13 +71,12 @@ persistence:
   name: ssl-certs
   size: 1Gi
   path: /ssl-certs
-  storageClass: local-path
+  storageClass: local-storage
   accessMode: ReadWriteOnce
 
 tolerations:
-  - key: "node-role.kubernetes.io/control-plane"
-    operator: "Exists"
-    effect: "NoSchedule"
+  - effect: NoSchedule
+    operator: Exists
 
 # deployment:
 #   initContainers:
