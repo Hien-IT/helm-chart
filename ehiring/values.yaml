@@ -139,117 +139,117 @@ competencies-backend:
     type: backend
   router:
     routes:
-      - path: :30443/api/competencies
-      - path: :30443/api/competency-groups
+      - path: /api/competencies
+      - path: /api/competency-groups
 
 dashboard-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/dashboard
+      - path: /api/dashboard
 
 emails-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/emails
+      - path: /api/emails
 
 file-manager-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/file-manager
+      - path: /api/file-manager
 
 gpt-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/gpt
+      - path: /api/gpt
 
 integrations-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/integrations
+      - path: /api/integrations
 
 job-descriptions-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/job-descriptions
-      - path: :30443/api/job-description-groups
+      - path: /api/job-descriptions
+      - path: /api/job-description-groups
 
 mail-templates-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/mail-templates
+      - path: /api/mail-templates
 
 masterdata-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/masterdata
+      - path: /api/masterdata
 
 recruitment-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/recruitment-plans
-      - path: :30443/api/recruitment-requests
-      - path: :30443/api/applications
-      - path: :30443/api/offers
+      - path: /api/recruitment-plans
+      - path: /api/recruitment-requests
+      - path: /api/applications
+      - path: /api/offers
 
 schedules-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/schedules
-      - path: :30443/api/schedule-groups
-      - path: :30443/api/evaluation-forms
-      - path: :30443/api/evaluation-form-groups
+      - path: /api/schedules
+      - path: /api/schedule-groups
+      - path: /api/evaluation-forms
+      - path: /api/evaluation-form-groups
 
 talent-pools-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/talent-pools
-      - path: :30443/api/talents
-      - path: :30443/api/resumes
+      - path: /api/talent-pools
+      - path: /api/talents
+      - path: /api/resumes
 
 users-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/users
-      - path: :30443/api/user-groups
+      - path: /api/users
+      - path: /api/user-groups
 
 tenants-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/tenants
-      - path: :30443/api/configuration
+      - path: /api/tenants
+      - path: /api/configuration
 
 websites-backend:
   ingress:
     type: backend
   router:
     routes:
-      - path: :30443/api/websites
+      - path: /api/websites
 
 portal-backend:
   hosts: 
@@ -259,7 +259,7 @@ portal-backend:
     type: backend
   router:
     routes:
-      - path: :30443/api/portals
+      - path: /api/portals
 
 services-mailer-tanlong:
   env:
