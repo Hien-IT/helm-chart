@@ -9,6 +9,7 @@ annotations: {}
 global:
   ssl:
     enabled: true
+    secretName: letsencrypt-prod
   hosts: 
     - "10.86.62.31.sslip.io"
   frontend:
@@ -88,17 +89,12 @@ service:
   port: 80
 
 resources:
-  {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 autoscaling:
   enabled: false
@@ -114,15 +110,15 @@ tolerations: []
 affinity: {}
 
 cms-ehiring-portal:
-  service:
-    ingress:
-      type: frontend
+  ingress:
+    type: frontend
   image:
     namespace: other
     repository: cms-ehiring-portal
   hosts: 
     - "tuyen-dung.tanlong.10.86.62.31.sslip.io"
     - "tuyen-dung.shlv.10.86.62.31.sslip.io"
+  service:
   port: 3000
   router:
     routes:
@@ -132,91 +128,80 @@ ehiring-host:
   hosts: 
     - "tanlong.10.86.62.31.sslip.io"
     - "shlv.10.86.62.31.sslip.io"
-  service:
-    ingress:
-      type: frontend
+  ingress:
+    type: frontend
   router:
     routes:
       - path: /
 
 competencies-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/competencies
       - path: /api/competency-groups
 
 dashboard-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/dashboard
 
 emails-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/emails
 
 file-manager-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/file-manager
 
 gpt-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/gpt
 
 integrations-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/integrations
 
 job-descriptions-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/job-descriptions
       - path: /api/job-description-groups
 
 mail-templates-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/mail-templates
 
 masterdata-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/masterdata
 
 recruitment-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/recruitment-plans
@@ -225,9 +210,8 @@ recruitment-backend:
       - path: /api/offers
 
 schedules-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/schedules
@@ -236,9 +220,8 @@ schedules-backend:
       - path: /api/evaluation-form-groups
 
 talent-pools-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/talent-pools
@@ -246,26 +229,23 @@ talent-pools-backend:
       - path: /api/resumes
 
 users-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/users
       - path: /api/user-groups
 
 tenants-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/tenants
 
 websites-backend:
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/websites
@@ -274,9 +254,8 @@ portal-backend:
   hosts: 
     - "tuyen-dung.tanlong.10.86.62.31.sslip.io"
     - "tuyen-dung.shlv.10.86.62.31.sslip.io"
-  service:
-    ingress:
-      type: backend
+  ingress:
+    type: backend
   router:
     routes:
       - path: /api/portals

@@ -6,15 +6,17 @@ metadata:
   annotations:
     spec.ingressClassName: traefik
     traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+    {{- if eq .Values.global.ssl.enabled "true" }}
     traefik.ingress.kubernetes.io/ssl-redirect: {{ .Values.global.ssl.enabled | quote }}
     traefik.ingress.kubernetes.io/ssl-permanent-redirect: {{ .Values.global.ssl.enabled | quote }} 
     # ssl for test dont use production
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: {{ .Values.global.ssl.secretName }}
     ##
+    {{- end }}
 spec:
   rules:
     {{- range $name, $config := .Values }}
-    {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
+    {{- if and (kindIs "map" $config) (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
     {{- range $host := default $.Values.global.hosts $config.hosts }}
     - host: {{ $host }}
       http:
@@ -26,19 +28,20 @@ spec:
               service:
                 name: {{ $.Release.Name }}-{{ $name }}-service
                 port: 
-                  number: {{ default 8080 $config.port }}
+                  number: {{ default 8080 $config.service.port }}
         {{- end }}
     {{- end }}
     {{- end }}
     {{- end }}
+  {{- if eq .Values.global.ssl.enabled "true" }}
   tls:
     - hosts:
         {{- range $name, $config := .Values }}
-        {{- if and (kindIs "map" $config) (hasKey $config "service") (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
+        {{- if and (kindIs "map" $config) (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
         {{- range $host := default $.Values.global.hosts $config.hosts }}
         - {{ $host }}
         {{- end }}
         {{- end }}
         {{- end }}
       secretName: letsencrypt-prod
-      
+  {{- end }}
