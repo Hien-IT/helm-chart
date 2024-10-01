@@ -19,7 +19,7 @@ spec:
           service:
             name: traefik
             port: 
-              number: 443
+              number: 30443
   tls:
     - hosts:
       - 10.86.62.31.sslip.io
