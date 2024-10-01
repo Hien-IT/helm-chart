@@ -1,0 +1,27 @@
+# Cấu hình ports
+ports:
+  web:
+    port: 80
+    expose: true
+    exposedPort: 80
+    protocol: TCP
+  websecure:
+    port: 443
+    expose: true
+    exposedPort: 443
+    protocol: TCP
+
+# Cấu hình service
+service:
+  type: LoadBalancer
+  annotations: {}
+
+# Bật dashboard
+dashboard:
+  enabled: true
+
+# Cấu hình SSL
+ssl:
+  enabled: true
+  permanentRedirect: false
+
