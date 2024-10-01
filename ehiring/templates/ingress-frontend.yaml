@@ -16,7 +16,7 @@ metadata:
 spec:
   rules:
     {{- range $name, $config := .Values }}
-    {{- if and (kindIs "map" $config) (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
+    {{- if and (kindIs "map" $config) (hasKey $config "ingress") (eq $config.ingress.type "frontend") }}
     {{- range $host := default $.Values.global.hosts $config.hosts }}
     - host: {{ $host }}
       http:
@@ -37,7 +37,7 @@ spec:
   tls:
     - hosts:
         {{- range $name, $config := .Values }}
-        {{- if and (kindIs "map" $config) (hasKey $config.service "ingress") (eq $config.service.ingress.type "frontend") }}
+        {{- if and (kindIs "map" $config) (hasKey $config "ingress") (eq $config.ingress.type "frontend") }}
         {{- range $host := default $.Values.global.hosts $config.hosts }}
         - {{ $host }}
         {{- end }}
