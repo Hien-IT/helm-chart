@@ -71,6 +71,8 @@ persistence:
   name: ssl-certs
   size: 1Gi
   path: /ssl-certs
+  storageClass: local-storage
+  accessMode: ReadWriteOnce
 
 # deployment:
 #   initContainers:
