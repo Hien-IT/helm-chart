@@ -118,7 +118,6 @@ cms-ehiring-portal:
   hosts: 
     - "tuyen-dung.tanlong.10.86.62.31.sslip.io"
     - "tuyen-dung.shlv.10.86.62.31.sslip.io"
-  service:
   port: 3000
   router:
     routes:
