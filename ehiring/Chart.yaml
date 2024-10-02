@@ -133,6 +133,47 @@ dependencies:
     tags:
       - backend-services
     version: ^0.1.0
+  - alias: tanlong-custom
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: shlv-integration-scheduler
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: tanlong-services-integration-sender
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: services-integration-scheduler
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: services-notifications
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: services-gpt
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+  - alias: services-export
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
 description: A Helm chart for Kubernetes
 name: ehiring
 type: application
