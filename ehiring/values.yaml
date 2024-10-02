@@ -280,7 +280,7 @@ websites-backend:
     routes:
       - path: /api/websites
 
-tanlong-custom:
+tanlong-custom-backend:
   ingress:
     type: backend
   router:

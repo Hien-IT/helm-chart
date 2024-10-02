@@ -133,7 +133,7 @@ dependencies:
     tags:
       - backend-services
     version: ^0.1.0
-  - alias: tanlong-custom
+  - alias: tanlong-custom-backend
     name: backend-service
     repository: file://../backend-service
     tags:
