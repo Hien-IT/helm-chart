@@ -13,6 +13,7 @@ global:
   hosts: 
     - "tanlong.10.86.62.31.sslip.io"
     - "shlv.10.86.62.31.sslip.io"
+    - "svfc.10.86.62.31.sslip.io"
   frontend:
     env:
       - name: APP_API
@@ -110,6 +111,7 @@ tolerations: []
 
 affinity: {}
 
+#Portal
 cms-ehiring-portal:
   ingress:
     type: frontend
@@ -121,20 +123,32 @@ cms-ehiring-portal:
   hosts: 
     - "tuyen-dung.tanlong.10.86.62.31.sslip.io"
     - "tuyen-dung.shlv.10.86.62.31.sslip.io"
+    - "tuyen-dung.svfc.10.86.62.31.sslip.io"
   router:
     routes:
       - path: /
 
-ehiring-host:
+portal-backend:
   hosts: 
-    - "tanlong.10.86.62.31.sslip.io"
-    - "shlv.10.86.62.31.sslip.io"
+    - "tuyen-dung.tanlong.10.86.62.31.sslip.io"
+    - "tuyen-dung.shlv.10.86.62.31.sslip.io"
+    - "tuyen-dung.svfc.10.86.62.31.sslip.io"
+  ingress:
+    type: backend
+  router:
+    routes:
+      - path: /api/portals      
+#
+
+#Frontend
+ehiring-host:
   ingress:
     type: frontend
   router:
     routes:
       - path: /
-
+#
+#Backend
 competencies-backend:
   ingress:
     type: backend
@@ -251,16 +265,9 @@ websites-backend:
   router:
     routes:
       - path: /api/websites
+#
 
-portal-backend:
-  hosts: 
-    - "tuyen-dung.tanlong.10.86.62.31.sslip.io"
-    - "tuyen-dung.shlv.10.86.62.31.sslip.io"
-  ingress:
-    type: backend
-  router:
-    routes:
-      - path: /api/portals
+#Services
 
 services-mailer-tanlong:
   env:
@@ -327,3 +334,4 @@ services-gpt:
 services-export:
   router:
     enabled: false
+#
