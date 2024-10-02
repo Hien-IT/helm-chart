@@ -58,6 +58,16 @@ global:
       - name: OIDC_JWKS_URI
         value: https://id.paas.ttgt.vn/realms/smc-staging/protocol/openid-connect/certs
 
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    secretName: letsencrypt-prod
+    
 imagePullSecrets:
   - name: rc-registry-secret
 nameOverride: ""

@@ -7,10 +7,9 @@ replicaCount: 1
 image:
   registry: rc.paas.ttgt.vn
   namespace: ehiring
-  # Overrides the image name whose default is the chart name.
   repository: ""
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+  # pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 imagePullSecrets:
