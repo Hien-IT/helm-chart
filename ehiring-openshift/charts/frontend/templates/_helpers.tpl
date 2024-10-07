@@ -118,4 +118,17 @@ Create the routerConfig for the route
 {{- toJson $route -}}
 {{- end -}}
 
-
+{{/*
+Create the hosts for the route
+*/}}
+{{- define "frontend.hosts" -}}
+{{- $routerConfig := ( include "frontend.routerConfig" . ) | fromJson -}}
+{{- $customHosts := .Values.global.hosts -}}
+{{- if  $routerConfig -}}
+  {{- if hasKey $routerConfig "hosts" -}}
+    {{- $customHosts = index $routerConfig "hosts" -}}  
+  {{- end -}}
+{{- end -}}
+{{- $hosts := $customHosts -}}
+{{- toJson $hosts -}}
+{{- end -}}
