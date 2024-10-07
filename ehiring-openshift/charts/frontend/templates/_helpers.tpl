@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "backend-service.name" -}}
+{{- define "frontend.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "backend-service.fullname" -}}
+{{- define "frontend.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "backend-service.chart" -}}
+{{- define "frontend.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "backend-service.labels" -}}
-helm.sh/chart: {{ include "backend-service.chart" . }}
-{{ include "backend-service.selectorLabels" . }}
+{{- define "frontend.labels" -}}
+helm.sh/chart: {{ include "frontend.chart" . }}
+{{ include "frontend.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "backend-service.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "backend-service.name" . }}
+{{- define "frontend.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "frontend.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "backend-service.serviceAccountName" -}}
+{{- define "frontend.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "backend-service.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "frontend.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -64,8 +64,8 @@ Create the name of the service account to use
 {{/*
 Create the name image of the service
 */}}
-{{- define "backend-service.imageName" -}}
-{{- $serviceName := default .Chart.Name ( include "backend-service.name" . ) -}}
+{{- define "frontend.imageName" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
 {{- $customRepo := "" -}}
 {{- $customTag := "" -}}
 {{- $customNamespace := "" -}}
@@ -89,36 +89,47 @@ Create the name image of the service
 {{- end -}}
 
 {{/*
-Create the env of the service
+Create the name port of the service
 */}}
-{{- define "backend-service.env" -}}
-{{- $globalEnv := .Values.global.backendService.env | default list }}
-{{- $localEnv := .Values.env | default list }}
-{{- $mergedEnv := list }}
+{{- define "frontend.port" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $customPort := "" -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "port" -}}
+    {{- $customPort = index .Values $serviceName "port" -}}
+  {{- end -}}
+{{- end -}}
+{{- $port := default .Values.service.port $customPort -}}
+{{- $port -}}
+{{- end -}}
 
-{{- range $globalEnv }}
-{{- $name := .name }}
-{{- $value := .value }}
-{{- $found := false }}
-{{- range $localEnv }}
-{{- if eq .name $name }}
-{{- $value = .value }}
-{{- $found = true }}
-{{- end }}
-{{- end }}
-{{- if not $found }}
-{{- $mergedEnv = append $mergedEnv (dict "name" $name "value" $value) }}
-{{- end }}
-{{- end }}
-
-{{- range $localEnv }}
-{{- $mergedEnv = append $mergedEnv . }}
-{{- end }}
-
-{{- range $mergedEnv }}
-- name: {{ .name }}
-  value: {{ .value | quote }}
-{{- end }}
+{{/*
+Create the routerConfig for the route
+*/}}
+{{- define "frontend.routerConfig" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $customRoute := dict -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "router" -}}
+    {{- $customRoute = index .Values $serviceName "router" -}}
+  {{- end -}}
+{{- end -}}
+{{- $route := default .Values.router $customRoute -}}
+{{- toJson $route -}}
 {{- end -}}
 
 
+{{/*
+Create the hosts for the route
+*/}}
+{{- define "frontend.hosts" -}}
+{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
+{{- $customHosts := .Values.global.hosts -}}
+{{- if hasKey .Values $serviceName -}}
+  {{- if hasKey (index .Values $serviceName) "hosts" -}}
+    {{- $customHosts = index .Values $serviceName "hosts" -}}
+  {{- end -}}
+{{- end -}}
+{{- $hosts := $customHosts -}}
+{{- toJson $hosts -}}
+{{- end -}}

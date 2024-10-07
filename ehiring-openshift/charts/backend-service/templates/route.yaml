@@ -1,0 +1,33 @@
+{{- $fullName := include "backend-service.fullname" $ -}}
+{{- $labels := include "backend-service.labels" $ -}}
+
+{{- $routerConfig := include "backend-service.routerConfig" . | fromJson -}}
+{{- $hosts := include "backend-service.hosts" . | fromJsonArray -}}
+
+{{- range $host := $hosts }}
+{{- range $route := $routerConfig.routes }}
+
+---
+###
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ $fullName }}-{{ $host }}-{{.name | default (.path | replace "/" "-") }}
+  labels:
+    {{- $labels | nindent 4 }}
+  annotations:
+    kubernetes.io/tls-acme: 'true'
+spec:
+  host: {{ $host }}
+  path: {{ $route.path }}
+  to:
+    kind: Service
+    name: {{ $fullName }}-service
+    weight: 100
+  port:
+    targetPort: {{ .port | default "http" }}
+
+{{- end }}
+{{- end }}
+
+
