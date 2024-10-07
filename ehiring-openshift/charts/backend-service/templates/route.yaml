@@ -2,9 +2,8 @@
 {{- $labels := include "backend-service.labels" $ -}}
 
 {{- $routerConfig := include "backend-service.routerConfig" . | fromJson -}}
-{{- $hosts := include "backend-service.hosts" . | fromJsonArray -}}
 
-{{- range $host := $hosts }}
+{{- range $host := $routerConfig.hosts }}
 {{- range $route := $routerConfig.routes }}
 
 ---

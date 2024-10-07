@@ -103,20 +103,6 @@ Create the routerConfig for the route
 {{- toJson $route -}}
 {{- end -}}
 
-{{/*
-Create the hosts for the route
-*/}}
-{{- define "backend-service.hosts" -}}
-{{- $serviceName := default .Chart.Name ( include "backend-service.name" . ) -}}
-{{- $customHosts := list -}}
-{{- if hasKey .Values $serviceName -}}
-  {{- if hasKey (index .Values $serviceName) "hosts" -}}
-    {{- $customHosts = index .Values $serviceName "hosts" -}}
-  {{- end -}}
-{{- end -}}
-{{- $hosts := default .Values.global.hosts $customHosts -}}
-{{- toJson $hosts -}}
-{{- end -}}
 
 {{/*
 Create the env of the service

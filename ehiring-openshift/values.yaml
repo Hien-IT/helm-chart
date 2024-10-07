@@ -115,22 +115,22 @@ affinity: {}
 
 #Portal
 cms-ehiring-portal:
-  hosts: 
-    - "tuyendung.fpt-stg.ehiring.vn"
   service:
     port: 3000
   image:
     namespace: other
     repository: cms-ehiring-portal
   router:
+    hosts: 
+      - "tuyendung.fpt-stg.ehiring.vn"
     routes:
       - path: /
         name: cms-ehiring-portal
 
 portal-backend:
-  hosts: 
-    - "tuyendung.fpt-stg.ehiring.vn"
   router:
+    hosts: 
+      - "tuyendung.fpt-stg.ehiring.vn"
     routes:
       - path: /api/portals      
 #

@@ -1,10 +1,9 @@
 {{- $fullName := include "frontend.fullname" $ -}}
 {{- $labels := include "frontend.labels" $ -}}
 
-{{- $hosts := include "frontend.hosts" . | fromJsonArray -}}
 {{- $routerConfig := include "frontend.routerConfig" . | fromJson -}}
 
-{{- range $host := $hosts }}
+{{- range $host := $routerConfig.hosts }}
 {{- range $route := $routerConfig.routes }}
 
 ---

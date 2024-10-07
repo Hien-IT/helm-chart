@@ -119,17 +119,3 @@ Create the routerConfig for the route
 {{- end -}}
 
 
-{{/*
-Create the hosts for the route
-*/}}
-{{- define "frontend.hosts" -}}
-{{- $serviceName := default .Chart.Name ( include "frontend.name" . ) -}}
-{{- $customHosts := .Values.global.hosts -}}
-{{- if hasKey .Values $serviceName -}}
-  {{- if hasKey (index .Values $serviceName) "hosts" -}}
-    {{- $customHosts = index .Values $serviceName "hosts" -}}
-  {{- end -}}
-{{- end -}}
-{{- $hosts := $customHosts -}}
-{{- toJson $hosts -}}
-{{- end -}}
