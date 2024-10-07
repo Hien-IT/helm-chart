@@ -16,6 +16,7 @@ global:
     - "shlv.10.86.62.31.sslip.io"
     - "svfc.10.86.62.31.sslip.io"
     - "dxg.10.86.62.31.sslip.io"
+    - "vietbank.10.86.62.31.sslip.io"
   frontend:
     env:
       - name: APP_API
@@ -148,6 +149,7 @@ portal-backend:
     - "tuyen-dung.shlv.10.86.62.31.sslip.io"
     - "tuyen-dung.svfc.10.86.62.31.sslip.io"
     - "tuyen-dung.dxg.10.86.62.31.sslip.io"
+    - "tuyen-dung.aan.10.86.62.31.sslip.io"
   ingress:
     type: backend
   router:
