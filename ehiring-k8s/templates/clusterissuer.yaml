@@ -1,5 +1,5 @@
 # ssl for test dont use production
-#kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.1.1/cert-manager.yaml
+#kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.0/cert-manager.yaml
 
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
