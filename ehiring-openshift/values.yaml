@@ -299,7 +299,7 @@ services-job-scheduler:
     - name: APP_REMOVE_APPLICATION_RUNNER_INTERVAL
       value: "00 00 00 * * *"
     - name: APP_CHECKLIST_RUNNER_INTERVAL
-      value: "*/30 * * * * *"
+      value: "00 * * * * *"
   router:
     enabled: false
 
