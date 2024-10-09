@@ -1,7 +1,8 @@
+{{- range $volume := .Values.volumes }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Release.Name }}-pv
+  name: {{ $volume.name }}-pv
 spec:
   capacity:
     storage: {{ .Values.persistence.size }}
@@ -20,24 +21,4 @@ spec:
           values:
           - worker1
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: {{ .Release.Name }}-minio-pv
-spec:
-  capacity:
-    storage: {{ .Values.persistence.size }}
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: {{ .Values.persistence.storageClass }}
-  local:
-    path: /mnt/data/minio
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - worker1
+{{- end }}

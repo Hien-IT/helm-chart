@@ -32,14 +32,13 @@ spec:
             - name: BITNAMI_DEBUG
               value: "true"
           volumeMounts:
-            - name: data
-              mountPath: /data
-            - name: minio-data
-              mountPath: /bitnami/minio/data
+            {{- range $volume := .Values.volumes }}
+            - name: {{ $volume.name }}
+              mountPath: {{ $volume.path }}
+            {{- end }}
       volumes:
-        - name: data
+        {{- range $volume := .Values.volumes }}
+        - name: {{ $volume.name }}
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-data-pvc
-        - name: minio-data
-          persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-minio-data-pvc
+            claimName: {{ $volume.name }}-pvc
+        {{- end }}

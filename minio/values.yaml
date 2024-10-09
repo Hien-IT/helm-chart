@@ -2,8 +2,24 @@ minio:
   image:
     repository: bitnami/minio
     tag: "latest"
-  rootPassword: "minio"
-  rootUsername: "bitnami-minio"
+  rootPassword: "bitnami-minio"
+  rootUsername: "minio"
 persistence:
   size: 5Gi
   storageClass: local-storage
+services:
+  - name: minio-service-ui
+    type: NodePort
+    nodePort: 32091
+    port: 9001
+    targetPort: 9001
+  - name: minio-service
+    type: ClusterIP
+    port: 9000
+    targetPort: 9000
+volumes:
+  - name: minio-data
+    path: /data
+  - name: minio-bitnami-data
+    path: /bitnami/minio/data
+  

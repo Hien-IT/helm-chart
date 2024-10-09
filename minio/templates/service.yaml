@@ -1,17 +1,18 @@
+{{- range $service := .Values.services }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-service
+  name: {{ $service.name }}
   labels:
     app: minio
 spec:
-  type: ClusterIP
+  type: {{ $service.type }}
   ports:
-    - port: 9000
-      name: minio-ui
-      targetPort: 9000
-    - port: 9001
-      name: minio
-      targetPort: 9001
+    - port: {{ $service.port }}
+      name: {{ $service.name }}
+      targetPort: {{ $service.targetPort }}
+      nodePort: {{ $service.nodePort }}
   selector:
     app: minio
+---    
+{{- end }}
