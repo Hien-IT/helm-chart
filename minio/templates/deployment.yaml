@@ -16,6 +16,8 @@ spec:
     spec:
       securityContext:
         fsGroup: 1001
+      nodeSelector:
+        kubernetes.io/hostname: worker1  
       containers:
         - name: minio
           image: {{ .Values.minio.image.repository }}:{{ .Values.minio.image.tag }}
