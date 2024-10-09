@@ -8,8 +8,10 @@ spec:
   type: ClusterIP
   ports:
     - port: 9000
+      name: minio-ui
       targetPort: 9000
     - port: 9001
+      name: minio
       targetPort: 9001
   selector:
     app: minio

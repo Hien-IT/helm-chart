@@ -1,6 +1,6 @@
 minio:
   image:
-    repository: bitnami/mongodb
+    repository: bitnami/minio
     tag: "latest"
   rootPassword: "minio"
   rootUsername: "bitnami-minio"
