@@ -6,9 +6,6 @@ replicaCount: 1
 
 annotations: {}
 
-namespace:
-  name: ehiring
-
 global:
   ssl:
     enabled: true

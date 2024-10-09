@@ -4,9 +4,6 @@
 
 replicaCount: 1
 
-namespace:
-  name: ehiring
-
 image:
   registry: rc.paas.ttgt.vn
   namespace: ehiring
