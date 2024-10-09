@@ -6,4 +6,4 @@ minio:
   rootUsername: "bitnami-minio"
 persistence:
   size: 7Gi
-  storageClass: local-storage
+  storageClass: minio-local-storage
