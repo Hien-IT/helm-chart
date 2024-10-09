@@ -10,7 +10,7 @@ annotations: {}
 global:
   ssl:
     enabled: true
-    secretName: letsencrypt-prod
+    secretName: tls-cert
   hosts: 
     - "tanlong.10.86.62.31.sslip.io"
     - "shlv.10.86.62.31.sslip.io"
