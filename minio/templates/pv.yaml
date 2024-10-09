@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: {{ .Values.persistence.storageClass }}
   local:
-    path: /mnt/data/minio
+    path: /mnt/minio
   nodeAffinity:
     required:
       nodeSelectorTerms:
