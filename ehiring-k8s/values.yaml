@@ -126,6 +126,15 @@ tolerations: []
 
 affinity: {}
 
+#Frontend
+ehiring-host:
+  ingress:
+    type: frontend
+  router:
+    routes:
+      - path: /
+#
+
 #Portal
 cms-ehiring-portal:
   ingress:
@@ -159,14 +168,6 @@ portal-backend:
       - path: /api/portals      
 #
 
-#Frontend
-ehiring-host:
-  ingress:
-    type: frontend
-  router:
-    routes:
-      - path: /
-#
 #Backend
 competencies-backend:
   ingress:
