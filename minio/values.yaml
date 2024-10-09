@@ -5,5 +5,5 @@ minio:
   rootPassword: "minio"
   rootUsername: "bitnami-minio"
 persistence:
-  size: 7Gi
-  storageClass: minio-local-storage
+  size: 5Gi
+  storageClass: local-storage
