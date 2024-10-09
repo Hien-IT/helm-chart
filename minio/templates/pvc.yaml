@@ -8,8 +8,8 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ if $.Values.persistence.size }}{{ $.Values.persistence.size }}{{ else }}5Gi{{ end }}
-  storageClassName: {{ .Values.persistence.storageClass }}
+      storage: {{ $volume.persistence.size }}
+  storageClassName: {{ $volume.persistence.storageClass }}
   volumeName: {{ $volume.name }}-pv
 ---    
 {{- end }}

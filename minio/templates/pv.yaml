@@ -5,11 +5,11 @@ metadata:
   name: {{ $volume.name }}-pv
 spec:
   capacity:
-    storage: {{ .Values.persistence.size }}
+    storage: {{ $volume.persistence.size }}
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: {{ .Values.persistence.storageClass }}
+  storageClassName: {{ $volume.persistence.storageClass }}
   local:
     path: /mnt/data/minio
   nodeAffinity:

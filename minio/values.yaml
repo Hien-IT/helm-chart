@@ -4,9 +4,7 @@ minio:
     tag: "latest"
   rootPassword: "bitnami-minio"
   rootUsername: "minio"
-persistence:
-  size: 5Gi
-  storageClass: local-storage
+
 services:
   - name: minio-service-ui
     type: NodePort
@@ -20,6 +18,12 @@ services:
 volumes:
   - name: minio-data
     path: /data
+    persistence:
+      size: 5Gi
+      storageClass: local-storage
   - name: minio-bitnami-data
     path: /bitnami/minio/data
+    persistence:
+      size: 5Gi
+      storageClass: local-storage
   
