@@ -39,7 +39,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-pvc
+            claimName: {{ .Release.Name }}-data-pvc
         - name: minio-data
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-pvc
+            claimName: {{ .Release.Name }}-minio-data-pvc
