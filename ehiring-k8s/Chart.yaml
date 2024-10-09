@@ -43,7 +43,7 @@ dependencies:
       - backend-services
     version: ^0.1.0
 
-  - alias: file-manager-backend
+  - alias: minio-backend
     name: backend-service
     repository: file://../backend-service
     tags:

@@ -188,7 +188,18 @@ emails-backend:
     routes:
       - path: /api/emails
 
-file-manager-backend:
+minio-backend:
+  env:
+    - name: MINIO_HOSTNAME
+      value: minio-service
+    - name: MINIO_PORT
+      value: "9000"
+    - name: MINIO_SECURE
+      value: "false"
+    - name: MINIO_ACCESS_KEY
+      value: oAUZNqUCLnr2EDNqybWM
+    - name: MINIO_SECRET_KEY
+      value: lnpglkxhlKpELHhXdEWF74x9IdmpiMj7PUdls51G
   ingress:
     type: backend
   router:
