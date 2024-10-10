@@ -1,1 +1,0 @@
-in production remove clusterissuer.yaml

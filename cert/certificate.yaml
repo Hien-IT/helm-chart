@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certmanager-app
+  namespace: default
+spec:
+  dnsNames:
+    - tanlong.10.86.62.31.sslip.io
+  secretName: certmanager-app-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
