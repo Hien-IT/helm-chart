@@ -9,7 +9,7 @@ annotations: {}
 global:
   ssl:
     enabled: true
-    secretName: letsencrypt-prod
+    secretName: certmanager-app-tls
   hosts: 
     - "tanlong.10.86.62.31.sslip.io"
     - "shlv.10.86.62.31.sslip.io"
@@ -65,9 +65,9 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: certmanager-app-tls
   tls:
-    secretName: letsencrypt-prod
+    secretName: certmanager-app-tls
 
 imagePullSecrets:
   - name: rc-registry-secret
