@@ -66,6 +66,8 @@ ingress:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     cert-manager.io/cluster-issuer: certmanager-app-tls
+    cert-manager.io/common-name: "10.86.62.31"
+    cert-manager.io/ip-sans: "10.86.62.31"
   tls:
     secretName: certmanager-app-tls
 
