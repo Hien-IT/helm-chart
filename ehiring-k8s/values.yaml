@@ -11,17 +11,17 @@ global:
     enabled: true
     secretName: certmanager-app-tls
   hosts: 
-    - "tanlong.10.86.62.31.sslip.io"
-    - "shlv.10.86.62.31.sslip.io"
-    - "svfc.10.86.62.31.sslip.io"
-    - "dxg.10.86.62.31.sslip.io"
-    - "vietbank.10.86.62.31.sslip.io"
+    - "tanlong.10.86.62.40.sslip.io"
+    - "shlv.10.86.62.40.sslip.io"
+    - "svfc.10.86.62.40.sslip.io"
+    - "dxg.10.86.62.40.sslip.io"
+    - "vietbank.10.86.62.40.sslip.io"
   frontend:
     env:
       - name: APP_API
         value: /api
       - name: AUTH_SECURE_ROUTES
-        value: "https://10.86.62.31.sslip.io:30443/"
+        value: "https://10.86.62.40.sslip.io:30443/"
       - name: AUTH_ISSUER
         value: https://id.paas.ttgt.vn/realms/smc-staging
       - name: AUTH_CLIENT_ID
@@ -43,7 +43,7 @@ global:
       - name: MONGODB_PORT
         value: "27017"
       - name: APP_FRONTEND_URL
-        value: https://10.86.62.31.sslip.io:30443/
+        value: https://10.86.62.40.sslip.io:30443/
       - name: APP_PREFIX
         value: api
       - name: APP_STANDALONE
@@ -140,22 +140,22 @@ cms-ehiring-portal:
     namespace: other
     repository: cms-ehiring-portal
   hosts: 
-    - "tuyen-dung.tanlong.10.86.62.31.sslip.io"
-    - "tuyen-dung.shlv.10.86.62.31.sslip.io"
-    - "tuyen-dung.svfc.10.86.62.31.sslip.io"
-    - "tuyen-dung.dxg.10.86.62.31.sslip.io"
-    - "tuyen-dung.aan.10.86.62.31.sslip.io"
+    - "tuyen-dung.tanlong.10.86.62.40.sslip.io"
+    - "tuyen-dung.shlv.10.86.62.40.sslip.io"
+    - "tuyen-dung.svfc.10.86.62.40.sslip.io"
+    - "tuyen-dung.dxg.10.86.62.40.sslip.io"
+    - "tuyen-dung.aan.10.86.62.40.sslip.io"
   router:
     routes:
       - path: /
 
 portal-backend:
   hosts: 
-    - "tuyen-dung.tanlong.10.86.62.31.sslip.io"
-    - "tuyen-dung.shlv.10.86.62.31.sslip.io"
-    - "tuyen-dung.svfc.10.86.62.31.sslip.io"
-    - "tuyen-dung.dxg.10.86.62.31.sslip.io"
-    - "tuyen-dung.aan.10.86.62.31.sslip.io"
+    - "tuyen-dung.tanlong.10.86.62.40.sslip.io"
+    - "tuyen-dung.shlv.10.86.62.40.sslip.io"
+    - "tuyen-dung.svfc.10.86.62.40.sslip.io"
+    - "tuyen-dung.dxg.10.86.62.40.sslip.io"
+    - "tuyen-dung.aan.10.86.62.40.sslip.io"
   ingress:
     type: backend
   router:

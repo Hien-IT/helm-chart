@@ -8,10 +8,10 @@ metadata:
 spec:
  tls:
    - hosts:
-       - whoami.10.86.62.31.sslip.io
+       - whoami.10.86.62.40.sslip.io
      secretName: tls-whoami-ingress-http
  rules:
-   - host: whoami.10.86.62.31.sslip.io
+   - host: whoami.10.86.62.40.sslip.io
      http:
        paths:
          - path: /
