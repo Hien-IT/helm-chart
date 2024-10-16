@@ -1,0 +1,4 @@
+nats:
+  image:
+    repository: bitnami/nats
+    tag: "2"

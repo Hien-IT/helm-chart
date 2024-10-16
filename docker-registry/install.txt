@@ -1,0 +1,5 @@
+kubectl create secret docker-registry rc-registry-secret \
+  --docker-server=https://rc.paas.ttgt.vn/ \
+  --docker-username='robot$temp' \
+  --docker-password= \
+  --docker-email=hiennd23@fpt.com

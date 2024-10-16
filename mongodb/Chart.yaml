@@ -1,0 +1,7 @@
+apiVersion: v2
+name: mongodb
+description: MongoDB Cluster Helm Chart
+type: application
+version: 0.1.0
+icon: https://bitnami.com/assets/stacks/mongodb/img/mongodb-stack-220x234.png
+appVersion: "6.0"

@@ -1,0 +1,45 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "ehiring.fullname" . }}-backend
+  annotations:
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  rules:
+    {{- range $name, $config := .Values }}
+    {{- if and (kindIs "map" $config) (hasKey $config "ingress") (eq $config.ingress.type "backend") }}
+    {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
+    {{- range $host := default $.Values.global.hosts $config.hosts }}
+    - host: {{ $host }}
+      http:
+        paths:
+        {{- range $route := $config.router.routes }}
+          - path: {{ $route.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $.Release.Name }}-{{ $name }}-service
+                port: 
+                  number: {{ default 3000 $config.service.port }}
+        {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}  
+  {{- if .Values.ingress.tls.secretName }}
+  tls:
+    - hosts:
+        {{- range $name, $config := .Values }}
+        {{- if and (kindIs "map" $config) (hasKey $config "ingress") (eq $config.ingress.type "backend") }}
+        {{- if and (kindIs "map" $config) (hasKey $config "router") ($config.router.enabled) }}
+        {{- range $host := default $.Values.global.hosts $config.hosts }}
+        - {{ $host }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+      secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+{{- end }}

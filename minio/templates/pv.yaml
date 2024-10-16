@@ -1,0 +1,24 @@
+{{- range $volume := .Values.volumes }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ $volume.name }}-pv
+spec:
+  capacity:
+    storage: {{ $volume.persistence.size }}
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ $volume.persistence.storageClass }}
+  local:
+    path: /mnt/data/minio
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - worker1
+---
+{{- end }}

@@ -1,0 +1,23 @@
+authentik:
+    secret_key: "Z93b0MYU5zGZYGDk8SrXYOkRKr8AxTHiWygs95rpTjk6Ge0RwT"
+    # This sends anonymous usage-data, stack traces on errors and
+    # performance data to sentry.io, and is fully opt-in
+    error_reporting:
+        enabled: true
+    postgresql:
+        password: "DGOnC9AO9zMhbmtyS8wBl9hNX9uxOjbh8woDoaprMV4fBoCek1Vnnuxi8eYaBWFBeblbjnYNONYix+aO"
+
+server:
+    ingress:
+        # Specify kubernetes ingress controller class name
+        ingressClassName: traefik
+        enabled: true
+        hosts:
+            - authentik.10.86.62.31.sslip.io
+
+postgresql:
+    enabled: true
+    auth:
+        password: "DGOnC9AO9zMhbmtyS8wBl9hNX9uxOjbh8woDoaprMV4fBoCek1Vnnuxi8eYaBWFBeblbjnYNONYix+aO"
+redis:
+    enabled: true

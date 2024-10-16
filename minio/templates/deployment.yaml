@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  labels:
+    app: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - name: minio
+          image: {{ .Values.minio.image.repository }}:{{ .Values.minio.image.tag }}
+          securityContext:
+            runAsUser: 1001
+          ports:
+            - containerPort: 9000
+            - containerPort: 9001
+          env:
+            - name: MINIO_ROOT_USER
+              value: {{ .Values.minio.rootUsername }}
+            - name: MINIO_ROOT_PASSWORD
+              value: {{ .Values.minio.rootPassword }}
+            - name: BITNAMI_DEBUG
+              value: "true"
+          volumeMounts:
+            {{- range $volume := .Values.volumes }}
+            - name: {{ $volume.name }}
+              mountPath: {{ $volume.path }}
+            {{- end }}
+      volumes:
+        {{- range $volume := .Values.volumes }}
+        - name: {{ $volume.name }}
+          persistentVolumeClaim:
+            claimName: {{ $volume.name }}-pvc
+        {{- end }}

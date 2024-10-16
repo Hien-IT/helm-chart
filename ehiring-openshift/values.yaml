@@ -1,0 +1,334 @@
+# Default values for ehiring.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+annotations: {}
+
+global:
+  hosts:
+    - "fpt-stg.ehiring.vn"
+  frontend:
+    env:
+      - name: APP_API
+        value: /api
+      - name: AUTH_SECURE_ROUTES
+        value: "https://fpt-stg.ehiring.vn/"
+      - name: AUTH_ISSUER
+        value: https://id.paas.ttgt.vn/realms/smc-staging
+      - name: AUTH_CLIENT_ID
+        value: ehiring
+  backendService:
+    env:
+      - name: APP_NAME
+        value: ehiring
+      - name: APP_LOGGER_LEVEL
+        value: debug,log,error,warn,verbose
+      - name: MONGODB_USERNAME
+        value: fpt-stg
+      - name: MONGODB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mongodb
+            key: mongodb-passwords
+      - name: APP_TENANT
+        valueFrom:
+            configMapKeyRef:
+              key: APP_TENANT
+              name: ehiring-fpt-dev
+      - name: MONGODB_DATABASE
+        value: ehiring-fpt-stg
+      - name: MONGODB_HOSTNAME
+        value: "mongodb"
+      - name: MONGODB_PORT
+        value: "27017"
+      - name: APP_FRONTEND_URL
+        value: https://fpt-stg.ehiring.vn/
+      - name: APP_PREFIX
+        value: api
+      - name: APP_STANDALONE
+        value: "false"
+      - name: NATS_SERVERS_1
+        value: nats://nats:4222
+      - name: OIDC_CLIENT_ID
+        value: ehiring
+      - name: OIDC_ISSUER
+        value: https://id.paas.ttgt.vn/realms/smc-staging
+      - name: OIDC_JWKS_URI
+        value: https://id.paas.ttgt.vn/realms/smc-staging/protocol/openid-connect/certs
+
+imagePullSecrets:
+  - name: rc.paas.ttgt.vn
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+# resources:
+#   limits:
+#     cpu: 150m
+#     memory: 256Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+
+#Portal
+cms-ehiring-portal:
+  service:
+    port: 3000
+  image:
+    namespace: other
+    repository: cms-ehiring-portal
+  router:
+    hosts: 
+      - "tuyendung.fpt-stg.ehiring.vn"
+    routes:
+      - path: /
+        name: cms-ehiring-portal
+
+portal-backend:
+  router:
+    hosts: 
+      - "tuyendung.fpt-stg.ehiring.vn"
+    routes:
+      - path: /api/portals      
+#
+
+#Frontend
+ehiring-host:
+  router:
+    routes:
+      - path: /
+        name: ehiring-host
+#
+#Backend
+competencies-backend:
+  router:
+    routes:
+      - path: /api/competencies
+      - path: /api/competency-groups
+
+dashboard-backend:
+  router:
+    routes:
+      - path: /api/dashboard
+
+emails-backend:
+  router:
+    routes:
+      - path: /api/emails
+
+file-manager-backend:
+  router:
+    routes:
+      - path: /api/file-manager
+
+gpt-backend:
+  router:
+    routes:
+      - path: /api/gpt
+
+integrations-backend:
+  router:
+    routes:
+      - path: /api/integrations
+
+job-descriptions-backend:
+  router:
+    routes:
+      - path: /api/job-descriptions
+      - path: /api/job-description-groups
+
+mail-templates-backend:
+  router:
+    routes:
+      - path: /api/mail-templates
+
+masterdata-backend:
+  router:
+    routes:
+      - path: /api/masterdata
+
+recruitment-backend:
+  router:
+    routes:
+      - path: /api/recruitment-plans
+      - path: /api/recruitment-requests
+      - path: /api/applications
+      - path: /api/offers
+
+schedules-backend:
+  router:
+    routes:
+      - path: /api/schedules
+      - path: /api/schedule-groups
+      - path: /api/evaluation-forms
+      - path: /api/evaluation-form-groups
+
+talent-pools-backend:
+  router:
+    routes:
+      - path: /api/talent-pools
+      - path: /api/talents
+      - path: /api/resumes
+
+users-backend:
+  router:
+    routes:
+      - path: /api/users
+      - path: /api/user-groups
+
+tenants-backend:
+  router:
+    routes:
+      - path: /api/tenants
+      - path: /api/configuration
+
+websites-backend:
+  router:
+    routes:
+      - path: /api/websites
+
+tanlong-custom-backend:
+  router:
+    routes:
+      - path: /api/custom-backend
+      - path: /api/custom-backend-no-auth
+#
+
+#Services
+
+services-mailer-fpt-stg:
+  env:
+    - name: MAILER_SENDER
+      value: "smtp"
+    - name: MAILER_HOST
+      value: sandbox.smtp.mailtrap.io
+    - name: MAILER_PORT
+      value: "587"
+    - name: MAILER_USERNAME
+      value: 52a4acdc0ac586
+    - name: MAILER_PASSWORD
+      value: e2df8b6f5dfdc2
+    - name: MAILER_FROM
+      value: '"FPT Recruitment" <fpt@talentx.vn>'
+    - name: MESSAGE_PATTERN_SEND_EMAIL
+      value: "sendEmail.fpt-stg"
+  image:
+    repository: services-mailer
+  router:
+    enabled: false
+
+services-cv-parser:
+  router:
+    enabled: false
+
+services-integration-scheduler:
+  env:
+    - name: APP_MASTERDATA_SENDER_INTERVAL
+      value: "00 00 01 * * *"
+  router:
+    enabled: false
+
+services-email-scheduler:
+  env:
+    - name: APP_EMAIL_SENDER_LIMIT
+      value: "10"
+    - name: APP_EMAIL_SENDER_INTERVAL
+      value: "*/30 * * * * *"
+    - name: APP_EMAIL_SENDER_DELAY
+      value: "5000"
+    - name: APP_EMAIL_SENDER_CUSTOM_QUERY
+      value: 
+    - name: APP_EMAIL_SENDER_ERROR_COUNT
+      value: "3"
+    - name: APP_DEFAULT_ORGANIZER_EMAIL
+      value: "recruitment@tanlonggroup.com"
+    - name: APP_DEFAULT_ORGANIZER_NAME
+      value: "FPT Recruitment"
+    - name: APP_DEFAULT_ORGANIZER_SENTBY
+      value: "recruitment@tanlonggroup.com"
+  router:
+    enabled: false
+
+services-job-scheduler:
+  env:
+    - name: APP_RECRUITMENTPLAN_RUNNER_INTERVAL
+      value: "0 0 0 * * *"
+    - name: APP_REMOVE_APPLICATION_RUNNER_INTERVAL
+      value: "00 00 00 * * *"
+    - name: APP_CHECKLIST_RUNNER_INTERVAL
+      value: "00 * * * * *"
+  router:
+    enabled: false
+
+services-integration-sender-fpt-stg:
+  image:
+    namespace: ehiring
+    repository: services-integration-sender
+  env:
+    - name: MESSAGE_PATTERN_SEND_OFFER
+      value: "sendOfferIntegration.fpt-stg"
+    - name: IHRP_URL
+      value: "https://api-uat-ihrp.tanlonggroup.com/"
+    - name: IHRP_TOKEN
+      value: "g7HjtDQdyFCni83d5OEVA5mBbzo8cdH4"
+  router:
+    enabled: false
+
+services-notifications:
+  router:
+    enabled: false
+
+services-gpt:
+  env:
+    - name: OPENAI_API_KEY
+      value: ""
+  router:
+    enabled: false
+
+services-export:
+  router:
+    enabled: false
+#

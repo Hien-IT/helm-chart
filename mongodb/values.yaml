@@ -1,0 +1,11 @@
+mongodb:
+  image:
+    repository: bitnami/mongodb
+    tag: "6.0"
+  rootPassword: "admin"
+  username: "ehiring"
+  password: "ehiring"
+  database: "ehiring-stg"
+persistence:
+  size: 3Gi
+  storageClass: local-storage

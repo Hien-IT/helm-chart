@@ -1,0 +1,2 @@
+Nats đã được cài đặt thành công.
+

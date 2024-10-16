@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ehiring-tls
+  namespace: default
+spec:
+  secretName: ehiring-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - "tanlong.10.86.62.31.sslip.io"
+    - "shlv.10.86.62.31.sslip.io"
+    - "svfc.10.86.62.31.sslip.io"
+    - "dxg.10.86.62.31.sslip.io"
+    - "vietbank.10.86.62.31.sslip.io"

@@ -1,0 +1,18 @@
+{{- range $service := .Values.services }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $service.name }}
+  labels:
+    app: minio
+spec:
+  type: {{ $service.type }}
+  ports:
+    - port: {{ $service.port }}
+      name: {{ $service.name }}
+      targetPort: {{ $service.targetPort }}
+      nodePort: {{ $service.nodePort }}
+  selector:
+    app: minio
+---    
+{{- end }}

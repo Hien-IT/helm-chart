@@ -1,0 +1,216 @@
+apiVersion: v2
+appVersion: latest
+description: A Helm chart for Kubernetes
+name: ehiring
+type: application
+version: 0.1.0
+dependencies:
+  - alias: ehiring-host
+    name: frontend
+    repository: file://../frontend
+    tags:
+      - frontend
+    version: ^0.1.0
+    
+  - alias: cms-ehiring-portal
+    name: frontend
+    repository: file://../frontend
+    tags:
+      - frontend
+    version: ^0.1.0
+
+  - alias: tenants-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: competencies-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: dashboard-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: emails-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: minio-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: gpt-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: integration-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: job-descriptions-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: mail-templates-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: masterdata-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: recruitment-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: schedules-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: talent-pools-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: users-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: websites-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: portal-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: services-mailer-tanlong
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: services-mailer-shlv
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: services-cv-parser
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: services-email-scheduler
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: tanlong-custom-backend
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: shlv-integration-scheduler
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: tanlong-services-integration-sender
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: services-integration-scheduler
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: services-notifications
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: services-gpt
+    name: backend-service
+    repository: file://../backend-service
+    tags:
+      - backend-services
+    version: ^0.1.0
+
+  - alias: services-export
+    name: backend-service
+    repository: file://../backend-service
+    version: ^0.1.0
+    tags:
+      - backend-services
+
+  - alias: services-job-scheduler
+    name: backend-service
+    repository: file://../backend-service
+    version: ^0.1.0
+    tags:
+      - backend-services

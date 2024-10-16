@@ -1,0 +1,7 @@
+apiVersion: v2
+name: minio
+description: Minio Helm Chart
+type: application
+version: 0.1.0
+icon: https://bitnami.com/assets/stacks/minio/img/minio-stack-220x234.png
+appVersion: "latest"
